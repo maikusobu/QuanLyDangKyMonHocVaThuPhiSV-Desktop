@@ -4,13 +4,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os:
-          [
-            { name: "linux", image: "ubuntu-latest" },
-            { name: "windows", image: "windows-latest" },
-            { name: "macos", image: "macos-latest" },
-          ]
-    runs-on: ${{ matrix.os.image }}
+        os: ["ubuntu-latest", " windows-latest", "macos-latest"]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Github checkout
         uses: actions/checkout@v4
@@ -18,7 +13,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
       - name: Build app
         run: npm run make
       - name: Publish app

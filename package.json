@@ -2,7 +2,6 @@
   "name": "quanlydangkymonvathuphisv",
   "productName": "quanlydangkymonvathuphisv",
   "version": "1.0.0",
-  "type": "module",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
   "scripts": {
