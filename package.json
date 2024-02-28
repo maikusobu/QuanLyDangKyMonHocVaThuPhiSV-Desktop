@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
+  "repository": "https://github.com/maikusobu/QuanLyDangKyMonHocVaThuPhiSV-Desktop",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -30,6 +31,7 @@
     "@electron/fuses": "^1.7.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
+    "@vitejs/plugin-vue": "^5.0.4",
     "electron": "29.0.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -48,7 +50,10 @@
   "license": "MIT",
   "dependencies": {
     "@electron-forge/publisher-github": "^7.3.0",
+    "daisyui": "^4.7.2",
     "electron-squirrel-startup": "^1.0.0",
-    "update-electron-app": "^3.0.0"
+    "update-electron-app": "^3.0.0",
+    "vue": "^3.4.20",
+    "vue-router": "^4.3.0"
   }
 }

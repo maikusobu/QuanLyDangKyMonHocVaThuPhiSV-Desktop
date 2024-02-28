@@ -26,7 +26,6 @@ const config: ForgeConfig = {
           owner: "maikusobu",
           name: "QuanLyDangKyMonHocVaThuPhiSV-Desktop",
         },
-        prerelease: true,
       },
     },
   ],
