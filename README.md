@@ -1,4 +1,3 @@
-
 # SE104.O27 - Nhập môn công nghệ phần mềm
 
 [Trường Đại học Công nghệ Thông tin | University of Information Technology](https://www.uit.edu.vn/)
@@ -7,11 +6,11 @@
 
 ## THÀNH VIÊN NHÓM
 
-| STT    | MSSV          | Họ và Tên              | Github                                               | Email                   |
-| ------ |:-------------:| ----------------------:|-----------------------------------------------------:|-------------------------:|
-| 1      | 22520801      | Nguyễn Tấn Lợi (Trưởng nhóm) |[maikusobu](https://github.com/maikusobu)          |<22520801@gm.uit.edu.vn>   |
-| 2      |      |       ||  |
-| 3      |    |           |           |   |
+| STT | MSSV     | Họ và Tên                    | Github                                            | Email                    |
+| --- | -------- | ---------------------------- | ------------------------------------------------- | ------------------------ |
+| 1   | 22520801 | Nguyễn Tấn Lợi (Trưởng nhóm) | [maikusobu](https://github.com/maikusobu)         | <22520801@gm.uit.edu.vn> |
+| 2   | 22521014 | Hoàng Minh Nhật              | [Nhat-Original](https://github.com/Nhat-Original) | <22521014@gm.uit.edu.vn> |
+| 3   | 22521461 | Trần Quỳnh Thy               | [tqthy](https://github.com/tqthy)                 | <22521461@gm.uit.edu.vn> |
 
 ## ❔ **How to name a branch**
 
