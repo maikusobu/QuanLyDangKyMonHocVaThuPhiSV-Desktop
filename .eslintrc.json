@@ -15,9 +15,8 @@
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
-      "prettier/prettier": 0,
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/no-explicit-any": "off"
-
+    "prettier/prettier": 0,
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
