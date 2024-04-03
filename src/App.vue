@@ -1,8 +1,8 @@
 <template>
-  <h1>💖 Hello World!</h1>
-  <p>hello</p>
+  <Login />
 </template>
 
 <script setup>
-console.log('👋 This message is being logged by "App.vue", included via Vite');
+import Login from './pages/auth/Login.vue'
+console.log('👋 This message is being logged by "App.vue", included via Vite')
 </script>
