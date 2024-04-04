@@ -9,7 +9,7 @@
     <div class="card border shadow-xl w-[512px] h-[420px]">
       <div class="card-body flex flex-col items-center">
         <div class="w-full flex justify-center">
-          <img :src="uitLogo" alt="" class="w-[100px] h-[100px]" />
+          <img :src="uitLogo" alt="UIT Logo" class="w-[100px] h-[100px]" />
         </div>
         <form class="card-body flex flex-col gap-[13px]">
           <input
@@ -18,11 +18,11 @@
             class="input input-bordered input-md w-full max-w-xs"
           />
           <input
-            type="text"
+            type="password"
             placeholder="Mật khẩu"
             class="input input-bordered input-md w-full max-w-xs"
           />
-          <div class="text-[9px] font-light text-error-text -my-[5px]">
+          <div class="text-[9px] font-light text-red-600 -my-[5px]">
             Thông tin đăng nhập không hợp lệ, vui lòng thử lại
           </div>
           <button
@@ -39,3 +39,5 @@
 <script setup>
 import uitLogo from '../assets/images/uitLogo.svg';
 </script>
+
+<style scoped></style>
