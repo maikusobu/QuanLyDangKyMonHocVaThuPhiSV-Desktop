@@ -9,11 +9,7 @@
     <div class="card border shadow-xl w-[512px] h-[420px]">
       <div class="card-body flex flex-col items-center">
         <div class="w-full flex justify-center">
-          <img
-            src="../../../src/assets/uit.svg"
-            alt=""
-            class="w-[100px] h-[100px]"
-          />
+          <img :src="uitLogo" alt="" class="w-[100px] h-[100px]" />
         </div>
         <form class="card-body flex flex-col gap-[13px]">
           <input
@@ -40,4 +36,6 @@
   </main>
 </template>
 
-<script></script>
+<script setup>
+import uitLogo from '../assets/images/uitLogo.svg';
+</script>
