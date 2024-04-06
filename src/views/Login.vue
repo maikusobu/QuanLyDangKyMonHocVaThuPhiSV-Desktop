@@ -11,7 +11,7 @@
         <div class="w-full flex justify-center">
           <img :src="uitLogo" alt="UIT Logo" class="w-[100px] h-[100px]" />
         </div>
-        <form class="card-body flex flex-col gap-[13px]">
+        <form @submit.prevent class="card-body flex flex-col gap-[13px]">
           <input
             type="text"
             placeholder="Tài khoản"
@@ -22,10 +22,12 @@
             placeholder="Mật khẩu"
             class="input input-bordered input-md w-full max-w-xs"
           />
-          <div class="text-[9px] font-light text-red-600 -my-[5px]">
-            Thông tin đăng nhập không hợp lệ, vui lòng thử lại
+          <div 
+            v-show="authError"
+            class="text-[9px] font-light text-red-600 -my-[5px]">
+            Thông tin đăng nhập không hợp lệ, vui lòng thử lại:
           </div>
-          <button
+          <button @click="login"
             class="btn btn-wide bg-secondary-400 text-base-white hover:bg-secondary-300"
           >
             Đăng nhập
@@ -38,6 +40,14 @@
 
 <script setup>
 import uitLogo from '../assets/images/uitLogo.svg';
+import { ref } from 'vue'
+
+const authError = ref(false)
+function login(e) {
+  
+  
+}
 </script>
+
 
 <style scoped></style>
