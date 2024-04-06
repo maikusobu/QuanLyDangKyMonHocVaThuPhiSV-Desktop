@@ -22,12 +22,14 @@
             placeholder="Mật khẩu"
             class="input input-bordered input-md w-full max-w-xs"
           />
-          <div 
+          <div
             v-show="authError"
-            class="text-[9px] font-light text-red-600 -my-[5px]">
+            class="text-[9px] font-light text-red-600 -my-[5px]"
+          >
             Thông tin đăng nhập không hợp lệ, vui lòng thử lại:
           </div>
-          <button @click="login"
+          <button
+            @click="login"
             class="btn btn-wide bg-secondary-400 text-base-white hover:bg-secondary-300"
           >
             Đăng nhập
@@ -40,14 +42,10 @@
 
 <script setup>
 import uitLogo from '../assets/images/uitLogo.svg';
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const authError = ref(false)
-function login(e) {
-  
-  
-}
+const authError = ref(false);
+function login(e) {}
 </script>
-
 
 <style scoped></style>
