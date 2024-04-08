@@ -14,12 +14,14 @@
         <form @submit.prevent class="card-body flex flex-col gap-[13px]">
           <input
             type="text"
-            placeholder="Tài khoản"
+            placeholder="Email"
             class="input input-bordered input-md w-full max-w-xs"
+            v-model="email"
           />
           <input
             type="password"
             placeholder="Mật khẩu"
+            v-model="password"
             class="input input-bordered input-md w-full max-w-xs"
           />
           <div
@@ -45,7 +47,36 @@ import uitLogo from '../assets/images/uitLogo.svg';
 import { ref } from 'vue';
 
 const authError = ref(false);
-function login(e) {}
+const email = ref('');
+const password = ref('');
+
+async function login(e) {
+  try {
+    const response = await fetch('http://localhost:3000/api/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error('Authentication Failed');
+    }
+
+    // Login success, routing and store token
+
+    console.log('Login successful', data);
+    authError.value = false;
+
+  } catch (error) {
+    authError.value = true;
+  }
+}
 </script>
 
 <style scoped></style>
