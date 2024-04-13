@@ -72,7 +72,6 @@ async function login(e) {
 
     console.log('Login successful', data);
     authError.value = false;
-
   } catch (error) {
     authError.value = true;
   }
