@@ -1,13 +1,25 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import Store from 'electron-store';
 import { updateElectronApp } from 'update-electron-app';
 updateElectronApp();
-
+const store = new Store();
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
-
+ipcMain.on('electron-store-get', (event, key) => {
+  event.returnValue = store.get(key);
+});
+ipcMain.on('electron-store-set', (event, key, val) => {
+  store.set(key, val);
+});
+ipcMain.on('electron-store-delete', (event, key) => {
+  store.delete(key);
+});
+ipcMain.on('electron-store-clear', () => {
+  store.clear();
+});
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
