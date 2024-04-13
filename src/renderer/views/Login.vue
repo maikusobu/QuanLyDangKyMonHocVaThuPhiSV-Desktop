@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import uitLogo from '../assets/images/uitLogo.svg';
+import uitLogo from '../../assets/images/uitLogo.svg';
 import { ref } from 'vue';
 
 const authError = ref(false);
