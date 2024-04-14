@@ -19,4 +19,8 @@
   input {
     @apply placeholder:text-[#8a8a8a] placeholder:text-[14px] placeholder:font-medium !rounded-[4px] !outline-none !ring-transparent;
   }
+
+  button {
+    @apply !outline-none !ring-0;
+  }
 }

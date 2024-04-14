@@ -1,17 +1,19 @@
-import { RouterOptions, createMemoryHistory, createRouter } from 'vue-router';
+import { RouteRecordRaw, createMemoryHistory, createRouter } from 'vue-router';
 
 import Login from '../views/Login.vue';
 import Course from '../views/course/Course.vue';
 
-const routes: RouterOptions['routes'] = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    // redirect: '/auth/login',
-    component: Course,
+    redirect: '/course',
   },
   {
     path: '/auth/login',
     component: Login,
+    meta: {
+      layout: 'EmptyLayout',
+    },
   },
   {
     path: '/course',

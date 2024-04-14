@@ -1,14 +1,13 @@
 <template>
-  <div class="flex">
-    <SideBar />
-    <div class="flex flex-col grow">
-      <Topbar />
-      <RouterView />
-    </div>
-  </div>
+  <EmptyLayout v-if="this.$route.meta.layout === 'EmptyLayout'">
+    <RouterView />
+  </EmptyLayout>
+  <DashboardLayout v-else>
+    <RouterView />
+  </DashboardLayout>
 </template>
 
 <script setup>
-import SideBar from './components/SideBar.vue';
-import Topbar from './components/TopBar.vue';
+import EmptyLayout from './layouts/EmptyLayout.vue';
+import DashboardLayout from './layouts/DashboardLayout.vue';
 </script>
