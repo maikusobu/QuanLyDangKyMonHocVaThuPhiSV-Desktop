@@ -17,6 +17,6 @@
 </template>
 
 <script setup>
-import searchIcon from '../../../assets/images/searchIcon.svg';
+import searchIcon from '../../../../assets/images/searchIcon.svg';
 import CreateModal from './CreateModal.vue';
 </script>
