@@ -15,12 +15,13 @@
     @apply bg-[#fcfafa];
   }
 
-  /* input */
+  /* form elements */
   input {
-    @apply placeholder:text-[#8a8a8a] placeholder:text-[14px] placeholder:font-medium !rounded-[4px] !outline-none !ring-transparent;
+    @apply placeholder:text-[#8a8a8a] placeholder:text-[14px] placeholder:font-medium !rounded-[4px];
   }
-
-  button {
+  button,
+  select,
+  input {
     @apply !outline-none !ring-0;
   }
 }

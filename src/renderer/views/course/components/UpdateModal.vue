@@ -3,7 +3,7 @@
     class="btn bg-secondary-400 text-base-white hover:bg-secondary-300"
     onclick="create_modal.showModal()"
   >
-    Thêm môn học
+    Chỉnh sửa
   </button>
   <dialog id="create_modal" class="modal">
     <div class="modal-box max-w-[900px] p-20">
@@ -12,7 +12,7 @@
           ✕
         </button>
       </form>
-      <h1 class="font-semibold text-3xl">Thêm môn học</h1>
+      <h1 class="font-semibold text-3xl">Chỉnh sửa môn học</h1>
       <button class="flex items-center gap-2">
         <img :src="plusCircleIcon" alt="add icon" />
         <p>Nhập từ CSV</p>
