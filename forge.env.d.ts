@@ -1,3 +1,4 @@
+
 export {}; // Make this a module
 
 declare global {
@@ -13,8 +14,20 @@ declare global {
       viteDevServers: Record<string, import('vite').ViteDevServer>;
     }
   }
+  interface Window {
+    electron: {
+      store: {
+        get: (key: string) => any;
+        set: (key: string, val: any) => void;
+        delete: (key: string) => void;
+        clear: () => void;
+      };
+    };
+  }
 
-  type VitePluginConfig = ConstructorParameters<typeof import('@electron-forge/plugin-vite').VitePlugin>[0];
+  type VitePluginConfig = ConstructorParameters<
+    typeof import('@electron-forge/plugin-vite').VitePlugin
+  >[0];
 
   interface VitePluginRuntimeKeys {
     VITE_DEV_SERVER_URL: `${string}_VITE_DEV_SERVER_URL`;
@@ -23,7 +36,9 @@ declare global {
 }
 
 declare module 'vite' {
-  interface ConfigEnv<K extends keyof VitePluginConfig = keyof VitePluginConfig> {
+  interface ConfigEnv<
+    K extends keyof VitePluginConfig = keyof VitePluginConfig,
+  > {
     root: string;
     forgeConfig: VitePluginConfig;
     forgeConfigSelf: VitePluginConfig[K][number];
