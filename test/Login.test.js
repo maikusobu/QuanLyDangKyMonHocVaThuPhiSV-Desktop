@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Login from '../src/views/Login.vue';
+import Login from '../src/renderer/views/Login.vue';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 vi.mock('vue', async () => {
   const Vue = await vi.importActual('vue');
