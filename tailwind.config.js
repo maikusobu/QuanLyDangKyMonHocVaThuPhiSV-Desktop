@@ -1,14 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false,
-  variants: {
-    extend: {},
-  },
+  content: ['./index.html', './src/**/*.{vue,js,ts}'],
   theme: {
     extend: {
       colors: {
         'base-white': '#FFFFFF',
+        'base-black': '#000000',
+        'base-silver': '#F2F4F8',
         'base-grey-5': '#FCFAFA',
         'base-grey-10': '#F1F1F1',
         'base-grey-25': '#DCDCDC',
@@ -50,4 +48,4 @@ module.exports = {
     },
   },
   plugins: [require('daisyui')],
-}
+};
