@@ -15,10 +15,7 @@ export default defineConfig((env) => {
     build: {
       outDir: `.vite/renderer/${name}`,
     },
-    test: {
-      globals: true,
-      environment: 'happy-dom',
-    },
+
     plugins: [pluginExposeRenderer(name), vue()],
     resolve: {
       preserveSymlinks: true,
