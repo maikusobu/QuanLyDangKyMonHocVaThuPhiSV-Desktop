@@ -1,23 +1,25 @@
 import { RouteRecordRaw, createMemoryHistory, createRouter } from 'vue-router';
-
 import Login from '../views/Login.vue';
 import Course from '../views/course/Course.vue';
+import Finance from '../views/finance/finance.vue';
+import Student from '../views/student/student.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/course',
-  },
-  {
-    path: '/auth/login',
     component: Login,
-    meta: {
-      layout: 'EmptyLayout',
-    },
   },
   {
     path: '/course',
     component: Course,
+  },
+  {
+    path: '/finance',
+    component: Finance,
+  },
+  {
+    path: '/student',
+    component: Student,
   },
 ];
 

@@ -63,6 +63,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.2.0",
     "happy-dom": "^6.0.4",
+    "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "update-electron-app": "^3.0.0",
     "vue": "^3.4.20",
