@@ -1,7 +1,7 @@
 import axios, { AxiosRequestHeaders } from 'axios';
 
 export const axiosClient = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3000/api/v1',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -18,12 +18,12 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
-axiosClient.interceptors.response.use((response) => {
-  if (response && response.data) {
-    return response.data;
-  }
-  if (response.status === 401) {
-    // Handle 401 error
-  }
-  return response;
-});
+// axiosClient.interceptors.response.use((response) => {
+//   if (response && response.data) {
+//     return response.data;
+//   }
+//   if (response.status === 401) {
+//     // Handle 401 error
+//   }
+//   return response;
+// });

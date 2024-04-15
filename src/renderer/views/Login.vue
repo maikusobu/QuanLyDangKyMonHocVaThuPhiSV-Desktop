@@ -45,31 +45,33 @@
 <script setup>
 import uitLogo from '../../assets/images/uitLogo.svg';
 import { ref } from 'vue';
+import { axiosClient } from '../../api/axiosClient';
+import { useRouter } from 'vue-router';
+import { resolveDepartment } from '../../util/resolveDepartment';
+import { decodeAT } from '../../util/decodeAT';
 
 const authError = ref(false);
+const router = useRouter();
 const email = ref('');
 const password = ref('');
 
 async function login(e) {
   try {
-    const response = await fetch('http://localhost:3000/api/v1/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
+    const response = await axiosClient.post('/auth/login', {
+      email: email.value,
+      password: password.value,
     });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error('Authentication Failed');
+    if (!response.data) {
+      throw new Error('Login failed');
     }
-
-    // Login success, routing and store token
-
+    const data = response.data;
+    window.electron.store.set('token', data.access_token);
+    const decoded = decodeAT(data.access_token);
+    if (decoded.role === 'student') {
+      throw new Error('Student not supported');
+    } else if (decoded.role === 'employee') {
+      await router.push(resolveDepartment(decoded.department));
+    }
     console.log('Login successful', data);
     authError.value = false;
   } catch (error) {

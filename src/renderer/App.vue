@@ -1,13 +1,9 @@
 <template>
-  <EmptyLayout v-if="this.$route.meta.layout === 'EmptyLayout'">
-    <RouterView />
-  </EmptyLayout>
-  <DashboardLayout v-else>
-    <RouterView />
-  </DashboardLayout>
+  <RouterView />
 </template>
 
 <script setup>
+import Login from './views/Login.vue';
 import EmptyLayout from './layouts/EmptyLayout.vue';
 import DashboardLayout from './layouts/DashboardLayout.vue';
 </script>
