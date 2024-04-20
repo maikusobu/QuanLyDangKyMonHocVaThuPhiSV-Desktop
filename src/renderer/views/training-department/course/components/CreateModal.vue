@@ -59,5 +59,5 @@
 </template>
 
 <script setup>
-import plusCircleIcon from '../../../../assets/images/plusCircleIcon.svg';
+import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 </script>

@@ -1,25 +1,59 @@
 import { RouteRecordRaw, createMemoryHistory, createRouter } from 'vue-router';
+import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
-import Course from '../views/course/Course.vue';
-import Finance from '../views/finance/finance.vue';
-import Student from '../views/student/student.vue';
+import Admin from '../views/admin/Admin.vue';
+import TrainingDepartment from '../views/training-department/TrainingDepartment.vue';
+import FinanceDepartment from '../views/finance-department/FinanceDepartment.vue';
+import Course from '../views/training-department/course/Course.vue';
+import StudentDepartment from '../views/student-department/StudentDepartment.vue';
+import { decodeAT } from '../../utils/decodeAT';
+import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    component: Home,
+    beforeEnter: () => {
+      const token = window.electron.store.get('token');
+      if (!token) {
+        return '/login';
+      }
+      const userSession = decodeAT(token);
+      if (userSession.role === 'admin') {
+        return '/admin';
+      }
+      if (userSession.role === 'employee') {
+        return `/${resolveDepartmentRoute(userSession.department)}`;
+      }
+    },
+  },
+  {
+    path: '/login',
     component: Login,
   },
   {
-    path: '/course',
-    component: Course,
+    path: '/admin', // admin
+    component: Admin,
   },
   {
-    path: '/finance',
-    component: Finance,
+    path: '/training-department', // phòng đào tạo
+    component: TrainingDepartment,
+    children: [
+      {
+        path: 'course',
+        component: Course,
+      },
+    ],
   },
   {
-    path: '/student',
-    component: Student,
+    path: '/finance-department', // phòng kế hoạch tài chính
+    component: FinanceDepartment,
+    children: [],
+  },
+  {
+    path: '/student-department', // phòng công tác sinh viên
+    component: StudentDepartment,
+    children: [],
   },
 ];
 
