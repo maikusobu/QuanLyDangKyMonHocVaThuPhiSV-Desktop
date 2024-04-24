@@ -3,8 +3,8 @@
     <SideBar
       title="phòng đào tạo"
       :routes="[
-        { name: 'dashboard', path: '/training-department' },
-        { name: 'courses', path: '/training-department/course' },
+        { name: 'bảng điều khiển', path: '/training-department' },
+        { name: 'môn học', path: '/training-department/course' },
       ]"
     />
     <div class="flex flex-col grow">
