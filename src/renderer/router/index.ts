@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
         return '/admin';
       }
       if (userSession.role === 'employee') {
-        return `/${resolveDepartmentRoute(userSession.department)}`;
+        return resolveDepartmentRoute(userSession.department);
       }
     },
   },
