@@ -47,8 +47,6 @@ import uitLogo from '../../assets/images/uitLogo.svg';
 import { ref } from 'vue';
 import { axiosClient } from '../../api/axiosClient';
 import { useRouter } from 'vue-router';
-import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
-import { decodeAT } from '../../utils/decodeAT';
 
 const authError = ref(false);
 const router = useRouter();
@@ -66,13 +64,7 @@ async function login(e) {
     }
     const data = response.data;
     window.electron.store.set('token', data.access_token);
-    const decoded = decodeAT(data.access_token);
-    if (decoded.role === 'student') {
-      throw new Error('Student not supported');
-    } else if (decoded.role === 'employee') {
-      window.location.reload();
-      await router.push(resolveDepartmentRoute(decoded.department));
-    }
+    router.push('/');
     console.log('Login successful', data);
     authError.value = false;
   } catch (error) {

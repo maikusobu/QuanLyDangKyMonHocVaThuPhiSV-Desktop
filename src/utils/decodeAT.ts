@@ -5,6 +5,9 @@ interface JwtPayload {
   role: string;
   department: string;
 }
-export const decodeAT = (token: string) => {
+
+const decodeAT = (token: string) => {
   return jwtDecode<JwtPayload>(token);
 };
+
+export default decodeAT;

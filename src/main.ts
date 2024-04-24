@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import Store from 'electron-store';
 import { updateElectronApp } from 'update-electron-app';
+
 updateElectronApp();
 const store = new Store();
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -23,11 +24,10 @@ ipcMain.on('electron-store-clear', () => {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    autoHideMenuBar: process.env.NODE_ENV === 'development' ? false : true,
   });
 
   // and load the index.html of the app.
@@ -57,6 +57,11 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+app.on('quit', () => {
+  // clear electron-store when app quit
+  store.clear();
 });
 
 app.on('activate', () => {

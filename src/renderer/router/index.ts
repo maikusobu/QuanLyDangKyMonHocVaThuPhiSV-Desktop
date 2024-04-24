@@ -6,19 +6,18 @@ import TrainingDepartment from '../views/training-department/TrainingDepartment.
 import FinanceDepartment from '../views/finance-department/FinanceDepartment.vue';
 import Course from '../views/training-department/course/Course.vue';
 import StudentDepartment from '../views/student-department/StudentDepartment.vue';
-import { decodeAT } from '../../utils/decodeAT';
 import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
+import getSession from '../../utils/getSession';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: Home,
     beforeEnter: () => {
-      const token = window.electron.store.get('token');
-      if (!token) {
+      const userSession = getSession();
+      if (!userSession) {
         return '/login';
       }
-      const userSession = decodeAT(token);
       if (userSession.role === 'admin') {
         return '/admin';
       }
