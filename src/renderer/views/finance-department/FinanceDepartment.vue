@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <SideBar />
+    <SideBar title="phòng kế hoạch tài chính" />
     <div class="flex flex-col grow">
       <Topbar />
       <RouterView />

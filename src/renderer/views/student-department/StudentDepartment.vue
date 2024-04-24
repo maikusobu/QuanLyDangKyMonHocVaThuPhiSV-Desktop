@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <SideBar />
+    <SideBar title="phòng công tác sinh viên" />
     <div class="flex flex-col grow">
       <Topbar />
       <RouterView />

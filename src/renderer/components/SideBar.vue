@@ -10,6 +10,9 @@
         v-for="route in routes"
         :key="route.name"
         class="text-white capitalize flex items-center justify-between px-6 py-3 hover:bg-primary-500 cursor-pointer"
+        :class="{
+          'bg-secondary-300': router.currentRoute.value.path === route.path,
+        }"
         @click="router.push(route.path)"
       >
         {{ route.name }}
