@@ -7,6 +7,7 @@ export const useCourseStore = defineStore('course', {
     courses: [],
     faculties: [],
     courseTypes: [],
+    errorMessages: [],
     searchQuery: '',
   }),
   actions: {
@@ -27,29 +28,46 @@ export const useCourseStore = defineStore('course', {
       this.courseTypes = response.data;
     },
 
-    async getCourse(id: number | string) {
-      const response = await axiosClient.get(`/course/${id}`);
-      this.currentCourse = response.data;
-    },
-
     async addCourse(course: any) {
-      await axiosClient.post('/course', course);
-      this.getCourses();
+      try {
+        await axiosClient.post('/course', course);
+        this.errorMessages = [];
+        this.getCourses();
+      } catch (error) {
+        const errorMessages = error.response.data.message || [];
+        this.errorMessages = errorMessages;
+      }
     },
 
-    async updateCourse(id: number | string) {
-      await axiosClient.put(`/course/${id}`, this.currentCourse);
-      this.getCourses();
+    async updateCourse(course: any) {
+      try {
+        await axiosClient.patch(`/course/${this.currentCourse.id}`, course);
+        this.currentCourse = course;
+        this.errorMessages = [];
+        this.getCourses();
+      } catch (error) {
+        const errorMessages = error.response.data.message || [];
+        this.errorMessages = errorMessages;
+      }
     },
 
     async deleteCourse(id: number | string) {
       await axiosClient.delete(`/course/${id}`);
+      this.currentCourse = null;
       this.getCourses();
     },
 
     updateSearchQuery(value: string) {
       this.searchQuery = value;
       this.getCourses();
+    },
+
+    clearErrorMessages() {
+      this.errorMessages = [];
+    },
+
+    setCurrentCourse(course: any) {
+      this.currentCourse = course;
     },
   },
 });

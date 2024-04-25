@@ -15,6 +15,7 @@
           v-for="course in courseStore.courses"
           :key="course.id"
           class="hover:!bg-secondary-100"
+          @click="() => handleRowClick(course)"
         >
           <td>{{ course.id }}</td>
           <td>{{ course.name }}</td>
@@ -32,4 +33,9 @@ import { useCourseStore } from '../stores/course';
 const courseStore = useCourseStore();
 
 courseStore.getCourses();
+
+const handleRowClick = (course) => {
+  courseStore.setCurrentCourse(course);
+  document.getElementById('update_modal').showModal();
+};
 </script>
