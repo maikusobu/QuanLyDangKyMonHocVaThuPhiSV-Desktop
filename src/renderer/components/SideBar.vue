@@ -1,5 +1,5 @@
 <template>
-  <aside class="h-screen w-[241px] bg-primary-400">
+  <aside class="h-screen min-w-[241px] w-[241px] bg-primary-400">
     <img :src="uitLogo" alt="logo" class="scale-50" />
     <div class="flex justify-center">
       <p class="text-white font-bold uppercase">{{ title }}</p>

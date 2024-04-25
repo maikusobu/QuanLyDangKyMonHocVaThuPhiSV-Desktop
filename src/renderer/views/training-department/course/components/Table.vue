@@ -12,15 +12,15 @@
       </thead>
       <tbody>
         <tr
-          v-for="course in dummyData"
+          v-for="course in courseStore.courses"
           :key="course.id"
           class="hover:!bg-secondary-100"
         >
           <td>{{ course.id }}</td>
           <td>{{ course.name }}</td>
           <td>{{ course.numberOfPeriods }}</td>
-          <td>{{ course.faculty }}</td>
-          <td>{{ course.type }}</td>
+          <td>{{ course.faculty.name }}</td>
+          <td>{{ course.courseType.name }}</td>
         </tr>
       </tbody>
     </table>
@@ -28,153 +28,8 @@
 </template>
 
 <script setup>
-const dummyData = [
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 1,
-    name: 'Lập trình hướng đối tượng',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 2,
-    name: 'Cấu trúc dữ liệu và giải thuật',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-  {
-    id: 3,
-    name: 'Nhập môn công nghệ phần mềm',
-    numberOfPeriods: 3,
-    faculty: 'Công nghệ phần mềm',
-    type: 'lý thuyết',
-  },
-];
+import { useCourseStore } from '../stores/course';
+const courseStore = useCourseStore();
+
+courseStore.getCourses();
 </script>
