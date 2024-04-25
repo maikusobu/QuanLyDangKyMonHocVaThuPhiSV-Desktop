@@ -27,13 +27,27 @@
  */
 
 import '../index.css';
+import 'vue-toastification/dist/index.css';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-
+import Toast, { PluginOptions } from 'vue-toastification';
 import App from './App.vue';
 import router from './router';
 
-createApp(App).use(router).use(createPinia()).mount('#app');
+createApp(App)
+  .use(router)
+  .use(createPinia())
+  .use(Toast, {
+    position: 'bottom-right',
+    newestOnTop: true,
+    maxToasts: 20,
+    closeButton: true,
+    closeOnClick: true,
+    icon: true,
+    timeout: 4000,
+    pauseOnHover: false,
+  } as PluginOptions)
+  .mount('#app');
 
 console.log(
   '👋 This message is being logged by "renderer.ts", included via Vite'

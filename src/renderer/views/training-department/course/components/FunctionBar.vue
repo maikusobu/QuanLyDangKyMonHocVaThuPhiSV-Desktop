@@ -8,9 +8,11 @@
         class="bg-base-silver pl-4 rounded-l"
       />
       <input
-        type="text"
-        placeholder="Tìm kiếm mã hoặc tên môn học"
+        type="search"
+        placeholder="Tìm kiếm tên môn học"
         class="input bg-base-silver max-w-[500px] placeholder:text-black focus:border-transparent"
+        :value="courseStore.searchQuery"
+        @input="courseStore.updateSearchQuery($event.target.value)"
       />
     </div>
   </div>
@@ -19,4 +21,6 @@
 <script setup>
 import searchIcon from '../../../../../assets/images/searchIcon.svg';
 import CreateModal from './CreateModal.vue';
+import { useCourseStore } from '../stores/course';
+const courseStore = useCourseStore();
 </script>
