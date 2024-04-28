@@ -23,19 +23,19 @@
       <form class="mt-8 grid grid-cols-2 gap-10" @submit="handleSubmit">
         <label class="flex flex-col col-span-2">
           Tên môn học
-          <input name="name" type="text" class="input input-bordered" />
+          <input class="input input-bordered" name="name" type="text" />
         </label>
         <label class="flex flex-col">
           Số tiết
           <input
+            class="input input-bordered"
             name="numberOfPeriods"
             type="number"
-            class="input input-bordered"
           />
         </label>
         <label class="flex flex-col">
           Khoa
-          <select name="facultyId" class="select select-bordered">
+          <select class="select select-bordered" name="facultyId">
             <option
               v-for="faculty in courseStore.faculties"
               :key="faculty.id"
@@ -47,7 +47,7 @@
         </label>
         <label class="flex flex-col">
           loại môn học
-          <select name="courseTypeId" class="select select-bordered">
+          <select class="select select-bordered" name="courseTypeId">
             <option
               v-for="courseType in courseStore.courseTypes"
               :key="courseType.id"
@@ -76,6 +76,7 @@
 <script setup>
 import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useCourseStore } from '../stores/course';
+
 const courseStore = useCourseStore();
 
 courseStore.getFaculties();
@@ -84,7 +85,7 @@ courseStore.getCourseTypes();
 const handleCloseModal = () => {
   courseStore.clearErrorMessages();
 };
-
+console.log(courseStore.errorMessages);
 const handleSubmit = (e) => {
   e.preventDefault();
 

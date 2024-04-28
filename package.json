@@ -67,6 +67,7 @@
     "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "update-electron-app": "^3.0.0",
+    "vee-validate": "^4.12.6",
     "vue": "^3.4.20",
     "vue-router": "^4.3.0",
     "vue-toastification": "^2.0.0-rc.5"
