@@ -27,7 +27,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
-    autoHideMenuBar: process.env.NODE_ENV === 'development' ? false : true,
+    autoHideMenuBar: process.env.NODE_ENV !== 'development',
   });
 
   // and load the index.html of the app.

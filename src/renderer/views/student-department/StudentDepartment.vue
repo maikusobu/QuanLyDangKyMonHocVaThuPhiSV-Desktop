@@ -1,6 +1,12 @@
 <template>
   <div class="flex">
-    <SideBar title="phòng công tác sinh viên" />
+    <SideBar
+      :routes="[
+        { name: 'bảng điều khiển', path: '/student-department' },
+        { name: 'Sinh viên', path: '/student-department/student' },
+      ]"
+      title="phòng công tác sinh viên"
+    />
     <div class="flex flex-col grow">
       <Topbar />
       <RouterView />
