@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-x-auto w-full h-[calc(100vh-300px)]">
-    <table class="table table-zebra">
+    <table class="table table-pin-rows table-zebra">
       <thead>
         <tr>
           <th>MSSV</th>
@@ -11,18 +11,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="student in studentStore.students"
+        <Row
+          v-for="(student, index) in studentStore.students"
           :key="student.id"
-          class="hover:!bg-secondary-100 cursor-pointer"
-          @click="() => handleRowClick(student)"
+          :isLast="index === studentStore.students.length - 1"
+          :student="student"
+          @click="handleRowClick"
         >
-          <td>{{ student.id }}</td>
-          <td>{{ student.name }}</td>
-          <td>{{ resolveGender(student.gender) }}</td>
-          <td>{{ student.major.name }}</td>
-          <td>{{ student.priority.name }}</td>
-        </tr>
+        </Row>
       </tbody>
     </table>
   </div>
@@ -30,6 +26,7 @@
 <script setup>
 import { useStudentStore } from '../stores/student';
 import Table from '../../../training-department/course/components/Table.vue';
+import Row from './Row.vue';
 
 const studentStore = useStudentStore();
 await studentStore.fetchStudents('');
@@ -39,9 +36,6 @@ await studentStore.getProvince();
 const handleRowClick = (student) => {
   studentStore.selectStudent(student);
   document.getElementById('edit_modal_student').showModal();
-};
-const resolveGender = (gender) => {
-  return gender === 'male' ? 'Nam' : 'Nữ';
 };
 </script>
 <style scoped></style>

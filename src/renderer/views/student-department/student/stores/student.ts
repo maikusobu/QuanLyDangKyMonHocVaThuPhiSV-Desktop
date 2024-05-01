@@ -65,6 +65,7 @@ export const useStudentStore = defineStore('student', {
     provinces: [] as Province[],
     districts: [] as District[],
     majors: [] as Major[],
+    page: 1,
     errorMessages: {} as Record<string, any>,
     search: {
       query: '',
@@ -75,12 +76,22 @@ export const useStudentStore = defineStore('student', {
     getErrorMessages() {
       return this.errorMessages;
     },
+    getQuery() {
+      return this.search.query;
+    },
   },
   actions: {
-    async fetchStudents(queryString: string) {
+    async fetchStudents(queryString: string, isSeach = false) {
       const query = `?${this.search.typeQuery}=${queryString}`;
-      const response = await axiosClient.get(`/student${query}`);
-      this.students = response.data;
+      if (isSeach) {
+        this.page = 1;
+        this.students = [];
+      }
+      const response = await axiosClient.get(
+        `/student${query}&page=${this.page}`
+      );
+
+      this.students.push(...response.data);
     },
 
     async getPriorities() {
@@ -103,9 +114,7 @@ export const useStudentStore = defineStore('student', {
       const response = await axiosClient.get(
         `/province/district/${provinceId}`
       );
-
       this.districts = response.data;
-      console.log(this.districts);
     },
     async updateStudent(student: Partial<Student>) {
       try {
