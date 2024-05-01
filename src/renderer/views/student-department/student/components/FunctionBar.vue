@@ -12,9 +12,9 @@
         class="bg-base-silver pl-4 rounded-l"
       />
       <input
-        v-model="searchQuery"
+        v-model="studentStore.search.query"
         class="input bg-base-silver max-w-[500px] placeholder:text-black focus:border-transparent"
-        placeholder="Tìm kiếm tên sinh viên"
+        placeholder="Tìm kiếm  sinh viên"
         type="search"
       />
     </div>
@@ -37,19 +37,18 @@ function debounce(fn, delay) {
   };
 }
 
-const searchQuery = ref(studentStore.search.query);
-
 const debouncedSearch = debounce(async (query) => {
-  await studentStore.fetchStudents(query);
+  await studentStore.fetchStudents(query, true);
 }, 500);
 
 watchEffect(() => {
-  debouncedSearch(searchQuery.value);
+  debouncedSearch(studentStore.search.query);
+  console.log(studentStore.search.query);
 });
 watch(
   () => studentStore.search.typeQuery,
   () => {
-    searchQuery.value = '';
+    studentStore.search.query = '';
   }
 );
 </script>
