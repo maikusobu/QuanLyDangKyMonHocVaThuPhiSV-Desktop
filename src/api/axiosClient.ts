@@ -1,12 +1,18 @@
 import axios, { AxiosRequestHeaders } from 'axios';
+import { setupCache } from 'axios-cache-interceptor/dev';
 
-export const axiosClient = axios.create({
-  baseURL: 'http://localhost:3000/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-});
+export const axiosClient = setupCache(
+  axios.create({
+    baseURL: 'http://localhost:3000/api/v1',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  }),
+  {
+    debug: console.log,
+  }
+);
 axiosClient.interceptors.request.use((config) => {
   const token = window.electron.store.get('token');
   if (token) {

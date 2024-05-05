@@ -90,7 +90,7 @@ export const useStudentStore = defineStore('student', {
       const response = await axiosClient.get(
         `/student${query}&page=${this.page}`
       );
-
+      console.log(response);
       this.students.push(...response.data);
     },
 
@@ -107,7 +107,9 @@ export const useStudentStore = defineStore('student', {
       }
     },
     async getProvince() {
-      const response = await axiosClient.get('/province');
+      const response = await axiosClient.get('/province', {
+        id: 'list-province',
+      });
       this.provinces = response.data;
     },
     async getDistrict(provinceId: number) {

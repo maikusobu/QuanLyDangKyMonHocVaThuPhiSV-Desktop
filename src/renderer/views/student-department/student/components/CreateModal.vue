@@ -172,7 +172,6 @@ const handleSubmit = async (value) => {
   await studentStore.addStudent(value);
   if (Object.keys(studentStore.errorMessages).length === 0) {
     document.getElementById('create_modal_student').close();
-    await studentStore.fetchStudents(studentStore.search.query);
     handleCloseModal();
   }
 };

@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import Row from './Row.vue';
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="overflow-x-auto w-full h-[calc(100vh-300px)]">

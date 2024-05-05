@@ -9,12 +9,12 @@ import { Suspense } from 'vue';
 <template>
   <FunctionBar />
   <Suspense>
-    <!--    <template #default>-->
-    <!--      <Table />-->
-    <!--    </template>-->
-    <!--    <template #fallback>-->
-    <SkeletonTable />
-    <!--    </template>-->
+    <template #default>
+      <Table />
+    </template>
+    <template #fallback>
+      <SkeletonTable />
+    </template>
   </Suspense>
   <EditModal />
 </template>

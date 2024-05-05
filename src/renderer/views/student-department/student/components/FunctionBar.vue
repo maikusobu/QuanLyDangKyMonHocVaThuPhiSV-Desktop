@@ -14,7 +14,7 @@
       <input
         v-model="studentStore.search.query"
         class="input bg-base-silver max-w-[500px] placeholder:text-black focus:border-transparent"
-        placeholder="Tìm kiếm  sinh viên"
+        placeholder="Tìm kiếm sinh viên"
         type="search"
       />
     </div>

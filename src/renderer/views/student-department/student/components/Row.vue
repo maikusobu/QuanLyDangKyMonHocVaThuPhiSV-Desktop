@@ -1,9 +1,5 @@
 <template>
-  <tr
-    ref="endOftable"
-    class="hover:!bg-secondary-100 cursor-pointer"
-    @click="handleRowClick"
-  >
+  <tr ref="endOftable" class="hover:!bg-secondary-100 cursor-pointer">
     <td>{{ student.id }}</td>
     <td>{{ student.name }}</td>
     <td>{{ resolveGender(student.gender) }}</td>
@@ -13,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits, onMounted } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 import type { Student } from '../stores/student';
 import { useStudentStore } from '../stores/student';
 
@@ -22,12 +18,8 @@ const props = defineProps({
   student: Object as () => Student,
   isLast: Boolean,
 });
-const endOftable = ref(null);
-const emit = defineEmits(['row-click']);
 
-const handleRowClick = () => {
-  emit('row-click', props.student);
-};
+const endOftable = ref(null);
 
 const resolveGender = (gender: string) => {
   return gender === 'male' ? 'Nam' : 'Nữ';
