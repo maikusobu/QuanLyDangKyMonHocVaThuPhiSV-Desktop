@@ -60,6 +60,7 @@
   "dependencies": {
     "@electron-forge/publisher-github": "^7.3.0",
     "axios": "^1.6.8",
+    "axios-cache-interceptor": "^1.5.2",
     "daisyui": "^4.7.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.2.0",

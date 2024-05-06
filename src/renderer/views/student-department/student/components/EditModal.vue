@@ -217,9 +217,9 @@ watch(
   () => studentStore.currentStudent,
   async (newVal) => {
     if (newVal) {
-      newVal['dateOfBirth'] = newVal['dateOfBirth'].split('T')[0];
-      Object.assign(localStudent, newVal);
-      console.log(newVal);
+      newVal['dateOfBirth'] =
+        studentStore.currentStudent['dateOfBirth'].split('T')[0];
+      Object.assign(localStudent, studentStore.currentStudent);
       await studentStore.getProvince();
       await studentStore.getDistrict(newVal.district.provinceId);
     } else {

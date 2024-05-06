@@ -1,17 +1,15 @@
-<script lang="ts" setup>
-import Row from './Row.vue';
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="overflow-x-auto w-full h-[calc(100vh-300px)]">
     <table class="table table-pin-rows table-zebra">
       <thead>
         <tr>
-          <th>MSSV</th>
-          <th>Họ và tên</th>
-          <th>Giới tính</th>
-          <th>Chuyên ngành</th>
-          <th>Đối tượng ưu tiên</th>
+          <th class="w-[10%] overflow-hidden">MSSV</th>
+          <th class="w-[25%] overflow-hidden">Họ và tên</th>
+          <th class="w-[15%] overflow-hidden">Giới tính</th>
+          <th class="w-[30%] overflow-hidden">Chuyên ngành</th>
+          <th class="w-[20%] overflow-hidden">Đối tượng ưu tiên</th>
         </tr>
       </thead>
       <tbody>
@@ -27,4 +25,8 @@ import Row from './Row.vue';
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+table {
+  table-layout: fixed;
+}
+</style>

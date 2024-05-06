@@ -1,43 +1,44 @@
 import { defineStore } from 'pinia';
 import { axiosClient } from '../../../../../api/axiosClient';
+import { toast } from '../../../../../utils/toast';
 
 type Faculty = {
-  id: Number;
-  name: String;
+  id: number;
+  name: string;
 };
 type Major = {
-  id: Number;
-  name: String;
-  facultyId: Number;
+  id: number;
+  name: string;
+  facultyId: number;
   faculty: Faculty;
 };
 type Province = {
-  id: Number;
-  name: String;
+  id: number;
+  name: string;
 };
 type Priority = {
-  id: Number;
-  name: String;
-  discountPercentage: Number;
+  id: number;
+  name: string;
+  discountPercentage: number;
 };
 type District = {
-  id: Number;
-  name: String;
-  isMinor: Boolean;
-  provinceId: Number;
+  id: number;
+  name: string;
+  isMinor: boolean;
+  provinceId: number;
   province: Province;
 };
 export type Student = {
-  id: Number;
-  name: String;
-  dateOfBirth: String;
-  gender: String;
-  address: String;
-  districtId: Number;
-  priorityId: Number;
+  id: number;
+  name: string;
+  dateOfBirth: string;
+  gender: string;
+  address: string;
+  districtId: number;
+  priorityId: number;
   district: District;
   priority: Priority;
-  majorId: Number;
+  majorId: number;
   major: Major;
 };
 
@@ -88,9 +89,12 @@ export const useStudentStore = defineStore('student', {
         this.students = [];
       }
       const response = await axiosClient.get(
-        `/student${query}&page=${this.page}`
+        `/student${query}&page=${this.page}`,
+        {
+          id: `list-student-${this.page}-${this.search.typeQuery}-${this.search.query}`,
+        }
       );
-
+      console.log(response.data);
       this.students.push(...response.data);
     },
 
@@ -101,26 +105,101 @@ export const useStudentStore = defineStore('student', {
 
     async addStudent(student: { [p: string]: File | string }) {
       try {
-        await axiosClient.post('/student', student);
+        await axiosClient.post('/student', student, {
+          cache: {
+            update: {
+              [`list-student-${this.page}-${this.search.typeQuery}-${this.search.query}`]:
+                (listCache, createPost) => {
+                  if (listCache.state !== 'cached') {
+                    return 'ignore';
+                  }
+                  const studentCreated = createPost.data[0];
+                  studentCreated['major'] = this.majors.find(
+                    (major: any) => major.id === studentCreated.majorId
+                  );
+                  studentCreated['priority'] = this.priorities.find(
+                    (priority: any) => priority.id === studentCreated.priorityId
+                  );
+                  studentCreated['district'] = this.districts.find(
+                    (district: any) => district.id === studentCreated.districtId
+                  );
+                  if (Array.isArray(listCache.data.data)) {
+                    listCache.data.data = [
+                      studentCreated,
+                      ...listCache.data.data,
+                    ];
+                  }
+                  this.students = [studentCreated, ...this.students];
+                  return listCache;
+                },
+            },
+            ttl: 0,
+          },
+        });
+        toast('Thêm sinh viên thành công', 'success');
       } catch (error) {
+        toast('Thêm sinh viên thất bại', 'error');
         this.errorMessages = arrayToObject(error.response.data.message) || {};
       }
     },
     async getProvince() {
-      const response = await axiosClient.get('/province');
+      const response = await axiosClient.get('/province', {
+        id: 'list-province',
+      });
       this.provinces = response.data;
     },
     async getDistrict(provinceId: number) {
       const response = await axiosClient.get(
-        `/province/district/${provinceId}`
+        `/province/district/${provinceId}`,
+
+        {
+          id: `list-district-${provinceId}`,
+        }
       );
       this.districts = response.data;
     },
     async updateStudent(student: Partial<Student>) {
       try {
-        await axiosClient.patch(`/student/${this.currentStudent.id}`, student);
+        await axiosClient.patch(`/student/${this.currentStudent.id}`, student, {
+          cache: {
+            update: {
+              [`list-student-${this.page}-${this.search.typeQuery}-${this.search.query}`]:
+                (listCache, createPost) => {
+                  if (listCache.state !== 'cached') {
+                    return 'ignore';
+                  }
+                  const studentUpdated = createPost.data[0];
+                  studentUpdated['major'] = this.majors.find(
+                    (major: any) => major.id === studentUpdated.majorId
+                  );
+                  studentUpdated['priority'] = this.priorities.find(
+                    (priority: any) => priority.id === studentUpdated.priorityId
+                  );
+                  studentUpdated['district'] = this.districts.find(
+                    (district: any) => district.id === studentUpdated.districtId
+                  );
+                  if (Array.isArray(listCache.data.data)) {
+                    listCache.data.data = listCache.data.data.map((student) =>
+                      student.id === studentUpdated.id
+                        ? studentUpdated
+                        : student
+                    );
+                  }
+                  this.students = this.students.map((student: any) =>
+                    student.id === studentUpdated.id ? studentUpdated : student
+                  );
+
+                  return listCache;
+                },
+            },
+            ttl: 0,
+          },
+        });
+        toast('Cập nhật sinh viên thành công', 'success');
       } catch (error) {
-        this.errorMessages = error.response.data.message || [];
+        toast('Cập nhật sinh viên thất bại', 'error');
+
+        this.errorMessages = arrayToObject(error.response.data.message) || {};
       }
     },
     async getMajors() {
@@ -128,9 +207,35 @@ export const useStudentStore = defineStore('student', {
       this.majors = response.data;
     },
     async deleteStudent(id: number | string) {
-      await axiosClient.delete(`/student/${id}`);
-      this.currentStudent = null;
+      try {
+        await axiosClient.delete(`/student/${id}`, {
+          cache: {
+            update: {
+              [`list-student-${this.page}-${this.search.typeQuery}-${this.search.query}`]:
+                (listCache) => {
+                  if (listCache.state !== 'cached') {
+                    return 'ignore';
+                  }
+                  if (Array.isArray(listCache.data.data)) {
+                    listCache.data.data = listCache.data.data.filter(
+                      (student) => student.id !== id
+                    );
+                  }
+                  this.students = this.students.filter(
+                    (student: any) => student.id !== id
+                  );
+                  return listCache;
+                },
+            },
+          },
+        });
+        toast('Xóa sinh viên thành công', 'success');
+        this.currentStudent = null;
+      } catch (error) {
+        toast('Xóa sinh viên thất bại', 'error');
+      }
     },
+
     selectTypeQuery(value: TypeQuery) {
       this.search.typeQuery = value;
     },
