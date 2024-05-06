@@ -11,6 +11,10 @@ export const axiosClient = setupCache(
   }),
   {
     debug: console.log,
+    methods: ['get', 'post', 'patch', 'delete'],
+    cachePredicate: {
+      statusCheck: (status) => true,
+    },
   }
 );
 axiosClient.interceptors.request.use((config) => {

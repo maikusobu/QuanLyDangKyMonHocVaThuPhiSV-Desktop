@@ -168,10 +168,11 @@ const handleCloseModal = () => {
   studentStore.clearErrorMessages();
 };
 
-const handleSubmit = async (value) => {
+const handleSubmit = async (value, { resetForm }) => {
   await studentStore.addStudent(value);
   if (Object.keys(studentStore.errorMessages).length === 0) {
     document.getElementById('create_modal_student').close();
+    resetForm();
     handleCloseModal();
   }
 };

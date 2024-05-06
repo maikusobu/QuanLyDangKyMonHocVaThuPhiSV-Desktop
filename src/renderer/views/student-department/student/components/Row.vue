@@ -17,6 +17,7 @@ const studentStore = useStudentStore();
 const props = defineProps({
   student: Object as () => Student,
   isLast: Boolean,
+  isLengthOver13: Boolean,
 });
 
 const endOftable = ref(null);
@@ -26,7 +27,7 @@ const resolveGender = (gender: string) => {
 };
 onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && props.isLast) {
+    if (entries[0].isIntersecting && props.isLast && props.isLengthOver13) {
       studentStore.page++;
       studentStore.fetchStudents(studentStore.search.query, false);
       observer.unobserve(entries[0].target);
