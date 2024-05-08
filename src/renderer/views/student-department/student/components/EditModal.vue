@@ -192,7 +192,6 @@
 </template>
 
 <script setup>
-import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useStudentStore } from '../stores/student';
 import { Form, Field } from 'vee-validate';
 import { reactive, watch } from 'vue';

@@ -10,10 +10,6 @@
         </button>
       </form>
       <h1 class="font-semibold text-3xl">Chỉnh sửa môn học</h1>
-      <button class="flex items-center gap-2">
-        <img :src="plusCircleIcon" alt="add icon" />
-        <p>Nhập từ CSV</p>
-      </button>
       <form class="mt-8 grid grid-cols-2 gap-10" @submit="handleSubmit">
         <label class="flex flex-col col-span-2">
           Tên môn học
@@ -87,7 +83,6 @@
 </template>
 
 <script setup>
-import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useCourseStore } from '../stores/course';
 const courseStore = useCourseStore();
 
