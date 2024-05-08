@@ -6,7 +6,7 @@
     Lập sinh viên
   </button>
   <dialog id="create_modal_student" class="modal">
-    <div class="modal-box min-w-[900px] w p-20">
+    <div class="modal-box min-w-[900px] w p-15">
       <form method="dialog">
         <button
           class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -20,10 +20,15 @@
         <img :src="plusCircleIcon" alt="add icon" />
         <p>Nhập từ CSV</p>
       </button>
-      <Form class="mt-8 grid grid-cols-4 gap-10" @submit="handleSubmit">
+      <form class="mt-8 grid grid-cols-4 gap-10 mr-6" @submit="handleSubmit">
         <label class="flex flex-col col-span-2">
           Họ và tên
-          <Field class="input input-bordered" name="name" type="text" />
+          <input
+            class="input input-bordered"
+            name="name"
+            placeholder="Tên sinh viên"
+            type="text"
+          />
           <p
             v-if="studentStore.errorMessages['name']"
             class="text-red-700 text-[12px]"
@@ -34,7 +39,14 @@
 
         <label class="flex flex-col">
           Ngày sinh
-          <Field class="input input-bordered" name="dateOfBirth" type="date" />
+          <input
+            :type="inputType"
+            class="input input-bordered"
+            name="dateOfBirth"
+            placeholder="Ngày sinh sinh viên"
+            @blur="inputType = 'text'"
+            @focus="inputType = 'date'"
+          />
 
           <p
             v-if="studentStore.errorMessages['dateOfBirth']"
@@ -45,8 +57,9 @@
         </label>
         <label>
           Đối tượng ưu tiên
-          <Field as="select" class="select select-bordered" name="priorityId">
-            <option disabled value="">Chọn đối tượng ưu tiên</option>
+
+          <select class="select select-bordered" name="priorityId">
+            <option disabled selected value="">Chọn đối tượng ưu tiên</option>
             <option
               v-for="priority in studentStore.priorities"
               :key="priority.id"
@@ -54,7 +67,7 @@
             >
               {{ priority.name }}
             </option>
-          </Field>
+          </select>
 
           <p
             v-if="studentStore.errorMessages['priorityId']"
@@ -65,9 +78,8 @@
         </label>
         <label class="flex flex-col">
           Địa chỉ
-
           <select
-            class="select select-bordered"
+            class="select select-bordered col-span-2"
             @change="studentStore.getDistrict($event.target.value)"
           >
             <option>Chọn tỉnh thành</option>
@@ -82,8 +94,11 @@
         </label>
         <label class="flex flex-col">
           <br />
-          <Field as="select" class="select select-bordered" name="districtId">
-            <option>Chọn quận/huyện</option>
+
+          <select class="select select-bordered" name="districtId">
+            <option disabled selected value="Chọn quận/huyện">
+              Chọn quận/huyện
+            </option>
             <option
               v-for="district in studentStore.districts"
               :key="district.id"
@@ -91,7 +106,7 @@
             >
               {{ district.name }}
             </option>
-          </Field>
+          </select>
 
           <p
             v-if="studentStore.errorMessages['districtId']"
@@ -102,7 +117,14 @@
         </label>
         <label class="flex flex-col col-span-2">
           <br />
-          <Field class="input input-bordered" name="address" type="text" />
+
+          <input
+            class="input input-bordered"
+            name="address"
+            placeholder="Địa chỉ chi tiết"
+            type="text"
+          />
+
           <p
             v-if="studentStore.errorMessages['address']"
             class="text-red-700 text-[12px]"
@@ -112,11 +134,12 @@
         </label>
         <label class="flex flex-col">
           Giới tính
-          <Field as="select" class="select select-bordered" name="gender">
-            <option disabled selected value="">Chọn giới tính</option>
+
+          <select class="select select-bordered" name="gender">
+            <option disabled selected>Chọn giới tính</option>
             <option value="male">Nam</option>
             <option value="female">Nữ</option>
-          </Field>
+          </select>
 
           <p
             v-if="studentStore.errorMessages['gender']"
@@ -128,7 +151,7 @@
 
         <label>
           Chuyên ngành
-          <Field as="select" class="select select-bordered" name="majorId">
+          <select class="select select-bordered" name="majorId">
             <option disabled selected value="">Chọn chuyên ngành</option>
             <option
               v-for="major in studentStore.majors"
@@ -137,7 +160,7 @@
             >
               {{ major.name }}
             </option>
-          </Field>
+          </select>
 
           <p
             v-if="studentStore.errorMessages['majorId']"
@@ -152,7 +175,7 @@
         >
           Lưu lại
         </button>
-      </Form>
+      </form>
     </div>
   </dialog>
 </template>
@@ -160,19 +183,23 @@
 <script setup>
 import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useStudentStore } from '../stores/student';
-import { Form, Field } from 'vee-validate';
+import { ref } from 'vue';
 
 const studentStore = useStudentStore();
-
+const inputType = ref('text');
 const handleCloseModal = () => {
   studentStore.clearErrorMessages();
 };
 
-const handleSubmit = async (value, { resetForm }) => {
-  await studentStore.addStudent(value);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  data['dateOfBirth'] = new Date(data['dateOfBirth']).toISOString();
+  await studentStore.addStudent(data);
   if (Object.keys(studentStore.errorMessages).length === 0) {
     document.getElementById('create_modal_student').close();
-    resetForm();
+    e.target.reset();
     handleCloseModal();
   }
 };
