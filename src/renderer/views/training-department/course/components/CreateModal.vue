@@ -85,7 +85,6 @@ courseStore.getCourseTypes();
 const handleCloseModal = () => {
   courseStore.clearErrorMessages();
 };
-console.log(courseStore.errorMessages);
 const handleSubmit = (e) => {
   e.preventDefault();
 
