@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { axiosClient } from '../../../../../api/axiosClient';
 
-export const useCourseStore = defineStore('course', {
+const useCourseStore = defineStore('course', {
   state: () => ({
     currentCourse: null,
     courses: [],
@@ -71,3 +71,5 @@ export const useCourseStore = defineStore('course', {
     },
   },
 });
+
+export { useCourseStore };

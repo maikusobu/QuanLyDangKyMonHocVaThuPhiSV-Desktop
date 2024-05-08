@@ -36,6 +36,6 @@ courseStore.getCourses();
 
 const handleRowClick = (course) => {
   courseStore.setCurrentCourse(course);
-  document.getElementById('update_modal').showModal();
+  document.getElementById('edit_course_modal').showModal();
 };
 </script>

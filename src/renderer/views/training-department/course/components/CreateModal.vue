@@ -1,11 +1,11 @@
 <template>
   <button
     class="btn bg-secondary-400 text-base-white hover:bg-secondary-300"
-    onclick="create_modal.showModal()"
+    onclick="create_course_modal.showModal()"
   >
     Thêm môn học
   </button>
-  <dialog id="create_modal" class="modal">
+  <dialog id="create_course_modal" class="modal">
     <div class="modal-box max-w-[900px] p-20">
       <form method="dialog">
         <button
@@ -85,7 +85,6 @@ courseStore.getCourseTypes();
 const handleCloseModal = () => {
   courseStore.clearErrorMessages();
 };
-console.log(courseStore.errorMessages);
 const handleSubmit = (e) => {
   e.preventDefault();
 

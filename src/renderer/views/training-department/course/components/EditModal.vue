@@ -1,5 +1,5 @@
 <template>
-  <dialog id="update_modal" class="modal">
+  <dialog id="edit_course_modal" class="modal">
     <div class="modal-box max-w-[900px] p-20">
       <form method="dialog">
         <button
