@@ -5,6 +5,7 @@
       :routes="[
         { name: 'bảng điều khiển', path: '/training-department' },
         { name: 'môn học', path: '/training-department/course' },
+        { name: 'chương trình học', path: '/training-department/program' },
       ]"
     />
     <div class="flex flex-col grow">

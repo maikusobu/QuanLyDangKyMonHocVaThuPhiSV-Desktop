@@ -38,7 +38,7 @@
             v-if="courseStore.errorMessages['numberOfPeriods']"
             class="text-red-700 text-[12px]"
           >
-            {{ courseStore.errorMessages['name'] }}
+            {{ courseStore.errorMessages['numberOfPeriods'] }}
           </p>
         </label>
         <label class="flex flex-col">
@@ -57,6 +57,12 @@
               {{ faculty.name }}
             </option>
           </Field>
+          <p
+            v-if="courseStore.errorMessages['facultyId']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ courseStore.errorMessages['facultyId'] }}
+          </p>
         </label>
         <label class="flex flex-col">
           loại môn học
@@ -74,19 +80,29 @@
               {{ courseType.name }}
             </option>
           </Field>
+          <p
+            v-if="courseStore.errorMessages['courseTypeId']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ courseStore.errorMessages['courseTypeId'] }}
+          </p>
         </label>
-        <button
-          class="row-start-4 btn w-[200px] bg-secondary-400 text-base-white hover:bg-secondary-300"
-          type="submit"
-        >
-          Lưu lại
-        </button>
-        <button
-          class="row-start-4 btn w-[200px] bg-error-text text-base-white hover:bg-delete-button-hover"
-          @click="handleDelete"
-        >
-          Xóa
-        </button>
+        <div class="col-span-3 flex gap-10">
+          <button
+            class="row-start-4 btn w-[200px] bg-secondary-400 text-base-white hover:bg-secondary-300"
+            type="submit"
+          >
+            Lưu lại
+          </button>
+
+          <button
+            class="row-start-4 btn w-[200px] bg-error-text text-base-white hover:bg-delete-button-hover"
+            type="button"
+            @click="handleDelete"
+          >
+            Xóa
+          </button>
+        </div>
       </Form>
     </div>
   </dialog>
