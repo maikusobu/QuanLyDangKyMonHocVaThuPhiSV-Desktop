@@ -1,4 +1,3 @@
-// TODO: fix the select field
 <template>
   <button
     class="btn bg-secondary-400 text-base-white hover:bg-secondary-300"
@@ -48,41 +47,39 @@
         </label>
         <label class="flex flex-col">
           Khoa
-          <Field
-            v-slot="{ value }"
-            as="select"
-            class="select select-bordered"
-            name="facultyId"
-          >
+          <Field as="select" class="select select-bordered" name="facultyId">
             <option
               v-for="(faculty, index) in courseStore.faculties"
               :key="faculty.id"
               :value="faculty.id"
-              :selected="index === 0"
-              v-bind="value"
             >
               {{ faculty.name }}
             </option>
           </Field>
+          <p
+            v-if="courseStore.errorMessages['facultyId']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ courseStore.errorMessages['facultyId'] }}
+          </p>
         </label>
         <label class="flex flex-col">
           Loại môn học
-          <Field
-            v-slot="{ value }"
-            as="select"
-            class="select select-bordered"
-            name="courseTypeId"
-          >
+          <Field as="select" class="select select-bordered" name="courseTypeId">
             <option
               v-for="(courseType, index) in courseStore.courseTypes"
               :key="courseType.id"
               :value="courseType.id"
-              :selected="index === 0"
-              v-bind="value"
             >
               {{ courseType.name }}
             </option>
           </Field>
+          <p
+            v-if="courseStore.errorMessages['courseTypeId']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ courseStore.errorMessages['courseTypeId'] }}
+          </p>
         </label>
         <button
           class="row-start-4 btn w-[200px] bg-secondary-400 text-base-white hover:bg-secondary-300"
