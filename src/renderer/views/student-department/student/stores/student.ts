@@ -84,7 +84,6 @@ export const useStudentStore = defineStore('student', {
           id: `list-student-${this.page}-${this.search.typeQuery}-${this.search.query}`,
         }
       );
-      console.log(response.data);
       this.students.push(...response.data);
     },
 
@@ -93,7 +92,7 @@ export const useStudentStore = defineStore('student', {
       this.priorities = response.data;
     },
 
-    async addStudent(student: { [p: string]: File | string }) {
+    async addStudent(student: { [p: string]: string | File }) {
       try {
         await axiosClient.post('/student', student, {
           cache: {
