@@ -7,6 +7,7 @@ import FinanceDepartment from '../views/finance-department/FinanceDepartment.vue
 import Course from '../views/training-department/course/Course.vue';
 import StudentDepartment from '../views/student-department/StudentDepartment.vue';
 import Student from '../views/student-department/student/Student.vue';
+import Program from '../views/training-department/program/Program.vue';
 import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
 import getSession from '../../utils/getSession';
 
@@ -42,6 +43,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'course',
         component: Course,
+      },
+      {
+        path: 'program',
+        component: Program,
       },
     ],
   },

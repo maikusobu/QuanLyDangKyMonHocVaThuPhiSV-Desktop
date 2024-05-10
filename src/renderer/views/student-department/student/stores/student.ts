@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { axiosClient } from '../../../../../api/axiosClient';
 import { toast } from '../../../../../utils/toast';
+import { arrayToObject } from '../../../../../utils/arrayToObject';
 
 type Faculty = {
   id: number;
@@ -45,17 +46,6 @@ export type Student = {
 enum TypeQuery {
   name = 'name',
   mssv = 'mssv',
-}
-
-function arrayToObject(array: string[]) {
-  const result: Record<string, any> = {};
-
-  array.forEach((item) => {
-    const [key, ...value] = item.split(' ');
-    result[key] = value.join(' ');
-  });
-
-  return result;
 }
 
 export const useStudentStore = defineStore('student', {
