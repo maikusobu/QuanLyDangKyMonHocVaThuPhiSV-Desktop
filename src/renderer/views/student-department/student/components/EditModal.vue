@@ -9,6 +9,7 @@
           ✕
         </button>
       </form>
+      <h1 class="font-semibold text-3xl">Chỉnh sửa thông tin sinh viên</h1>
       <Form class="mt-8 grid grid-cols-4 gap-10" @submit="handleSubmit">
         <label class="flex flex-col col-span-2">
           Họ và tên
@@ -179,7 +180,7 @@
             Lưu lại
           </button>
           <button
-            class="row-start-4 btn w-[200px] bg-delete-button text-base-white hover:bg-secondary-300"
+            class="row-start-4 btn w-[200px] bg-error-text text-base-white hover:bg-delete-button-hover"
             type="button"
             @click="handleDelete"
           >
@@ -192,7 +193,6 @@
 </template>
 
 <script setup>
-import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useStudentStore } from '../stores/student';
 import { Form, Field } from 'vee-validate';
 import { reactive, watch } from 'vue';

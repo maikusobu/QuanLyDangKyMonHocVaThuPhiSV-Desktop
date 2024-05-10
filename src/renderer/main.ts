@@ -46,6 +46,7 @@ createApp(App)
     icon: true,
     timeout: 4000,
     pauseOnHover: false,
+    pauseOnFocusLoss: false,
   } as PluginOptions)
   .mount('#app');
 

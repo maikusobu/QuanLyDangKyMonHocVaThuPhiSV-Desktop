@@ -1,11 +1,12 @@
+// TODO: fix the select field
 <template>
   <button
     class="btn bg-secondary-400 text-base-white hover:bg-secondary-300"
-    onclick="create_modal.showModal()"
+    onclick="create_course_modal.showModal()"
   >
     Thêm môn học
   </button>
-  <dialog id="create_modal" class="modal">
+  <dialog id="create_course_modal" class="modal">
     <div class="modal-box max-w-[900px] p-20">
       <form method="dialog">
         <button
@@ -20,42 +21,68 @@
         <img :src="plusCircleIcon" alt="add icon" />
         <p>Nhập từ CSV</p>
       </button>
-      <form class="mt-8 grid grid-cols-2 gap-10" @submit="handleSubmit">
+      <Form class="mt-8 grid grid-cols-2 gap-10" @submit="handleSubmit">
         <label class="flex flex-col col-span-2">
           Tên môn học
-          <input class="input input-bordered" name="name" type="text" />
+          <Field class="input input-bordered" name="name" type="text" />
+          <p
+            v-if="courseStore.errorMessages['name']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ courseStore.errorMessages['name'] }}
+          </p>
         </label>
         <label class="flex flex-col">
           Số tiết
-          <input
+          <Field
             class="input input-bordered"
             name="numberOfPeriods"
             type="number"
           />
+          <p
+            v-if="courseStore.errorMessages['numberOfPeriods']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ courseStore.errorMessages['numberOfPeriods'] }}
+          </p>
         </label>
         <label class="flex flex-col">
           Khoa
-          <select class="select select-bordered" name="facultyId">
+          <Field
+            v-slot="{ value }"
+            as="select"
+            class="select select-bordered"
+            name="facultyId"
+          >
             <option
-              v-for="faculty in courseStore.faculties"
+              v-for="(faculty, index) in courseStore.faculties"
               :key="faculty.id"
               :value="faculty.id"
+              :selected="index === 0"
+              v-bind="value"
             >
               {{ faculty.name }}
             </option>
-          </select>
+          </Field>
         </label>
         <label class="flex flex-col">
-          loại môn học
-          <select class="select select-bordered" name="courseTypeId">
+          Loại môn học
+          <Field
+            v-slot="{ value }"
+            as="select"
+            class="select select-bordered"
+            name="courseTypeId"
+          >
             <option
-              v-for="courseType in courseStore.courseTypes"
+              v-for="(courseType, index) in courseStore.courseTypes"
               :key="courseType.id"
               :value="courseType.id"
+              :selected="index === 0"
+              v-bind="value"
             >
               {{ courseType.name }}
             </option>
-          </select>
+          </Field>
         </label>
         <button
           class="row-start-4 btn w-[200px] bg-secondary-400 text-base-white hover:bg-secondary-300"
@@ -63,12 +90,7 @@
         >
           Lưu lại
         </button>
-        <ul class="row-start-5 text-error-text">
-          <li v-for="errorMessage in courseStore.errorMessages">
-            {{ errorMessage }}
-          </li>
-        </ul>
-      </form>
+      </Form>
     </div>
   </dialog>
 </template>
@@ -76,6 +98,7 @@
 <script setup>
 import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useCourseStore } from '../stores/course';
+import { Form, Field } from 'vee-validate';
 
 const courseStore = useCourseStore();
 
@@ -84,14 +107,13 @@ courseStore.getCourseTypes();
 
 const handleCloseModal = () => {
   courseStore.clearErrorMessages();
+  document.getElementById('create_course_modal').close();
 };
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
-  courseStore.addCourse(data);
-
-  e.target.reset();
+const handleSubmit = async (value, { resetForm }) => {
+  await courseStore.addCourse(value);
+  if (Object.keys(courseStore.errorMessages).length === 0) {
+    resetForm();
+    handleCloseModal();
+  }
 };
 </script>
