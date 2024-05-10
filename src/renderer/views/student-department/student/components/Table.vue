@@ -31,7 +31,6 @@
 </template>
 <script setup>
 import { useStudentStore } from '../stores/student';
-import Table from '../../../training-department/course/components/Table.vue';
 import Row from './Row.vue';
 import notFound from '../../../../../assets/images/9169206.jpg';
 

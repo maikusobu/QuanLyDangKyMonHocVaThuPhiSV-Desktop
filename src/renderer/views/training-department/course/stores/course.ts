@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import { axiosClient } from '../../../../../api/axiosClient';
+import { toast } from '../../../../../utils/toast';
+import { arrayToObject } from '../../../../../utils/arrayToObject';
 
 const useCourseStore = defineStore('course', {
   state: () => ({
@@ -7,13 +9,21 @@ const useCourseStore = defineStore('course', {
     courses: [],
     faculties: [],
     courseTypes: [],
-    errorMessages: [],
+    errorMessages: {},
     searchQuery: '',
   }),
   actions: {
     async getCourses() {
       const response = await axiosClient.get(
-        `/course?search=${this.searchQuery}`
+        `/course?search=${this.searchQuery}`,
+        {
+          id: `list-course`,
+          cache: {
+            update: {
+              [`list-course`]: 'delete',
+            },
+          },
+        }
       );
       this.courses = response.data;
     },
@@ -31,30 +41,36 @@ const useCourseStore = defineStore('course', {
     async addCourse(course: any) {
       try {
         await axiosClient.post('/course', course);
-        this.errorMessages = [];
+        this.clearErrorMessages();
         this.getCourses();
+        toast('Thêm khóa học thành công', 'success');
       } catch (error) {
-        const errorMessages = error.response.data.message || [];
-        this.errorMessages = errorMessages;
+        this.errorMessages = arrayToObject(error.response.data.message) || {};
+        toast('Thêm khóa học thất bại', 'error');
       }
     },
 
     async updateCourse(course: any) {
       try {
         await axiosClient.patch(`/course/${this.currentCourse.id}`, course);
-        this.currentCourse = course;
-        this.errorMessages = [];
+        this.clearErrorMessages();
         this.getCourses();
+        toast('Cập nhật khóa học thành công', 'success');
       } catch (error) {
-        const errorMessages = error.response.data.message || [];
-        this.errorMessages = errorMessages;
+        this.errorMessages = arrayToObject(error.response.data.message) || {};
+        toast('Cập nhật khóa học thất bại', 'error');
       }
     },
 
     async deleteCourse(id: number | string) {
-      await axiosClient.delete(`/course/${id}`);
-      this.currentCourse = null;
-      this.getCourses();
+      try {
+        await axiosClient.delete(`/course/${id}`);
+        this.currentCourse = null;
+        this.getCourses();
+        toast('Xóa khóa học thành công', 'success');
+      } catch (error) {
+        toast('Xóa khóa học thất bại', 'error');
+      }
     },
 
     updateSearchQuery(value: string) {
@@ -63,7 +79,7 @@ const useCourseStore = defineStore('course', {
     },
 
     clearErrorMessages() {
-      this.errorMessages = [];
+      this.errorMessages = {};
     },
 
     setCurrentCourse(course: any) {
