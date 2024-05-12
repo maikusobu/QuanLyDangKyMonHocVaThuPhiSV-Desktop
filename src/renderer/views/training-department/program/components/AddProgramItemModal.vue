@@ -51,6 +51,20 @@
         <label class="row-start-2 col-span-4">
           Môn học
           <div class="overflow-x-auto w-full h-[300px] border">
+            <div class="flex">
+              <img
+                :src="searchIcon"
+                alt="search icon"
+                class="bg-base-silver pl-4 rounded-l"
+              />
+              <input
+                type="search"
+                placeholder="Tìm kiếm tên môn học"
+                class="input bg-base-silver max-w-[500px] placeholder:text-black focus:border-transparent"
+                :value="programStore.searchQuery"
+                @input="programStore.updateSearchQuery($event.target.value)"
+              />
+            </div>
             <table class="table table-zebra">
               <thead>
                 <tr>
@@ -66,7 +80,7 @@
                   v-for="course in programStore.courses"
                   :key="course.id"
                   class="hover:!bg-secondary-100"
-                  :class="{ 'bg-secondary-100': course.id === localCourseId }"
+                  :class="{ '!bg-secondary-100': course.id === localCourseId }"
                   @click="() => handleRowClick(course)"
                 >
                   <td>{{ course.id }}</td>
@@ -78,6 +92,12 @@
               </tbody>
             </table>
           </div>
+          <p
+            v-if="programStore.errorMessages['courseId']"
+            class="text-red-700 text-[12px]"
+          >
+            {{ programStore.errorMessages['courseId'] }}
+          </p>
         </label>
         <button
           class="btn w-[200px] bg-secondary-400 text-base-white hover:bg-secondary-300"
@@ -91,6 +111,7 @@
 </template>
 
 <script setup>
+import searchIcon from '../../../../../assets/images/searchIcon.svg';
 import plusCircleIcon from '../../../../../assets/images/plusCircleIcon.svg';
 import { useProgramStore } from '../stores/program';
 import { Form, Field } from 'vee-validate';
@@ -105,8 +126,15 @@ const handleCloseModal = () => {
   document.getElementById('add_program_item_modal').close();
 };
 const handleSubmit = async (value, { resetForm }) => {
-  if (Object.keys(courseStore.errorMessages).length === 0) {
+  await programStore.addProgramItem({
+    ...value,
+    courseId: localCourseId.value,
+    programId: programStore.currentProgram.id,
+  });
+
+  if (Object.keys(programStore.errorMessages).length === 0) {
     resetForm();
+    localCourseId.value = null;
     handleCloseModal();
   }
 };
