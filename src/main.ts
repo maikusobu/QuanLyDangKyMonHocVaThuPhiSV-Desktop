@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import path from 'path';
 import Store from 'electron-store';
 import { updateElectronApp } from 'update-electron-app';
@@ -22,11 +22,20 @@ ipcMain.on('electron-store-clear', () => {
   store.clear();
 });
 const createWindow = () => {
-  // Create the browser window.
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    width,
+    height,
+    minWidth: 800,
+    minHeight: 700,
+    maxWidth: width,
+    maxHeight: height,
+    movable: true,
+    resizable: true,
+    maximizable: true,
     autoHideMenuBar: process.env.NODE_ENV !== 'development',
   });
 

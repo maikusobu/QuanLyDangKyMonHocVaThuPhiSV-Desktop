@@ -39,9 +39,6 @@ const handleRowClick = (student) => {
   document.getElementById('edit_modal_student').showModal();
 };
 const studentStore = useStudentStore();
-await studentStore.getPriorities();
-await studentStore.getMajors();
-await studentStore.getProvince();
 </script>
 <style scoped>
 table {
