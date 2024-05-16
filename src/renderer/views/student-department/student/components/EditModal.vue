@@ -55,6 +55,10 @@
             <option
               v-for="priority in studentStore.priorities"
               :key="priority.id"
+              :disabled="
+                (priority.id === 3 && !localStudent.district.isMinor) ||
+                (priority.id === 4 && localStudent.district.isMinor)
+              "
               :value="priority.id"
             >
               {{ priority.name }}
@@ -210,6 +214,7 @@ const localStudent = reactive({
   address: '',
   district: {
     provinceId: '',
+    isMinor: false,
   },
 });
 

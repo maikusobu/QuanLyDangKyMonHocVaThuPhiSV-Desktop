@@ -7,7 +7,7 @@ type Faculty = {
   id: number;
   name: string;
 };
-type Major = {
+export type Major = {
   id: number;
   name: string;
   facultyId: number;
@@ -48,6 +48,17 @@ enum TypeQuery {
   mssv = 'mssv',
 }
 
+type OpenCourse = {
+  id: number;
+  name: string;
+  numberOfPeriods: number;
+  facultyId: number;
+};
+type courseType = {
+  id: number;
+  name: string;
+  unitPrice: number;
+};
 export const useStudentStore = defineStore('student', {
   state: () => ({
     currentStudent: null as Student | null,
@@ -55,6 +66,8 @@ export const useStudentStore = defineStore('student', {
     priorities: [] as Priority[],
     provinces: [] as Province[],
     districts: [] as District[],
+    openCourses: [] as OpenCourse[],
+    courseTypes: [] as courseType[],
     majors: [] as Major[],
     page: 1,
     errorMessages: {} as Record<string, any>,
@@ -224,7 +237,19 @@ export const useStudentStore = defineStore('student', {
         toast('Xóa sinh viên thất bại', 'error');
       }
     },
-
+    async getOpenCourses() {
+      const response = await axiosClient.get('/open-course', {
+        id: 'list-open-course',
+      });
+      this.openCourses = response.data;
+    },
+    async getCourseTypes() {
+      const response = await axiosClient.get('/course-type', {
+        id: 'list-course-type',
+      });
+      this.courseTypes = response.data;
+    },
+    async updateStudentCourses(studentId: number, courseIds: number[]) {},
     selectTypeQuery(value: TypeQuery) {
       this.search.typeQuery = value;
     },

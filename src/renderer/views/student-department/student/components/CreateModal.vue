@@ -63,6 +63,7 @@
             <option
               v-for="priority in studentStore.priorities"
               :key="priority.id"
+              :disabled="priority.id === 3"
               :value="priority.id"
             >
               {{ priority.name }}

@@ -8,7 +8,9 @@ import Course from '../views/training-department/course/Course.vue';
 import StudentDepartment from '../views/student-department/StudentDepartment.vue';
 import Student from '../views/student-department/student/Student.vue';
 import Program from '../views/training-department/program/Program.vue';
+import CourseRegistration from '../views/student-department/student/CourseRegistration.vue';
 import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
+
 import getSession from '../../utils/getSession';
 
 const routes: Array<RouteRecordRaw> = [
@@ -56,13 +58,16 @@ const routes: Array<RouteRecordRaw> = [
     children: [],
   },
   {
-    //cải thiện load khi cần thiết //
     path: '/student-department', // phòng công tác sinh viên
     component: StudentDepartment,
     children: [
       {
         path: 'student',
         component: Student,
+      },
+      {
+        path: 'course-registration',
+        component: CourseRegistration,
       },
     ],
   },
