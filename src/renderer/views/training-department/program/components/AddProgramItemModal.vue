@@ -1,4 +1,3 @@
-// TODO: handle add program item logic
 <template>
   <button
     class="btn bg-secondary-400 text-base-white hover:bg-secondary-300"
@@ -27,7 +26,7 @@
           <Field as="select" class="select select-bordered" name="term">
             <option value="first">học kì 1</option>
             <option value="second">học kì 2</option>
-            <option value="third">học kì hè</option>
+            <option value="third">học kì 3</option>
           </Field>
 
           <p
@@ -79,7 +78,7 @@
                 <tr
                   v-for="course in programStore.courses"
                   :key="course.id"
-                  class="hover:!bg-secondary-100"
+                  class="hover:!bg-secondary-100 hover:cursor-pointer"
                   :class="{ '!bg-secondary-100': course.id === localCourseId }"
                   @click="() => handleRowClick(course)"
                 >

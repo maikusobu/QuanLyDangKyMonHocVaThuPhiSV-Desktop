@@ -22,9 +22,9 @@
             {{
               programItem.term === 'first'
                 ? 'học kì 1'
-                : programStore.term === 'second'
+                : programItem.term === 'second'
                   ? 'học kì 2'
-                  : 'học kì hè'
+                  : 'học kì 3'
             }}
           </td>
           <td>{{ programItem.note }}</td>
