@@ -9,7 +9,7 @@ export function getTermYear() {
   } else if (month >= 5 && month <= 8) {
     term = 'kì 2';
   } else {
-    term = 'hè';
+    term = 'kì 3';
   }
 
   return { term: term, year: year };

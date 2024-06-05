@@ -21,7 +21,7 @@
           >
             <option value="first">học kì 1</option>
             <option value="second">học kì 2</option>
-            <option value="third">học kì hè</option>
+            <option value="third">học kì 3</option>
           </Field>
 
           <p

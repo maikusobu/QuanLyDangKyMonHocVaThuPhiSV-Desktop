@@ -8,9 +8,9 @@ import Course from '../views/training-department/course/Course.vue';
 import StudentDepartment from '../views/student-department/StudentDepartment.vue';
 import Student from '../views/student-department/student/Student.vue';
 import Program from '../views/training-department/program/Program.vue';
+import AvailableCourse from '../views/training-department/availableCourse/AvailableCourse.vue';
 import CourseRegistration from '../views/student-department/student/CourseRegistration.vue';
 import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
-
 import getSession from '../../utils/getSession';
 
 const routes: Array<RouteRecordRaw> = [
@@ -49,6 +49,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'program',
         component: Program,
+      },
+      {
+        path: 'available-course',
+        component: AvailableCourse,
       },
     ],
   },

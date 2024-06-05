@@ -76,7 +76,12 @@ const useProgramStore = defineStore('program', {
           },
         }
       );
-      this.courses = response.data;
+      this.courses = (response.data as Course[]).filter(
+        (course) =>
+          !this.currentProgram?.programItems.some(
+            (programItem: ProgramItem) => programItem.courseId === course.id
+          )
+      );
     },
 
     async getProgramByMajorId(majorId: number) {
@@ -89,6 +94,7 @@ const useProgramStore = defineStore('program', {
         },
       });
       this.currentProgram = response.data;
+      this.getCourses();
     },
 
     async addProgramItem(programItem: Partial<ProgramItem>) {
