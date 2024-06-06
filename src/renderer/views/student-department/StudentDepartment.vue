@@ -1,8 +1,8 @@
 <template>
-  <div class="flex">
+  <div class="flex overflow-x-scroll">
     <SideBar
       :routes="[
-        { name: 'bảng điều khiển', path: '/student-department' },
+        { name: 'Bảng điều khiển', path: '/student-department' },
         { name: 'Sinh viên', path: '/student-department/student' },
         {
           name: 'Đăng ký môn học',
