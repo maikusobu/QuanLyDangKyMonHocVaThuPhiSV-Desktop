@@ -1,9 +1,9 @@
 <template>
-  <div class="flex">
+  <div class="flex overflow-x-scroll">
     <SideBar
       title="phòng đào tạo"
       :routes="[
-        { name: 'bảng điều khiển', path: '/training-department' },
+        { name: 'Bảng điều khiển', path: '/training-department' },
         { name: 'môn học', path: '/training-department/course' },
         { name: 'chương trình học', path: '/training-department/program' },
         { name: 'môn học mở', path: '/training-department/available-course' },

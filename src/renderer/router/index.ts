@@ -9,6 +9,8 @@ import StudentDepartment from '../views/student-department/StudentDepartment.vue
 import Student from '../views/student-department/student/Student.vue';
 import Program from '../views/training-department/program/Program.vue';
 import AvailableCourse from '../views/training-department/availableCourse/AvailableCourse.vue';
+import Payment from '../views/finance-department/payment/Payment.vue';
+import Report from '../views/finance-department/report/Report.vue';
 import CourseRegistration from '../views/student-department/student/CourseRegistration.vue';
 import resolveDepartmentRoute from '../../utils/resolveDepartmentRoute';
 import getSession from '../../utils/getSession';
@@ -59,7 +61,16 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/finance-department', // phòng kế hoạch tài chính
     component: FinanceDepartment,
-    children: [],
+    children: [
+      {
+        path: 'payment',
+        component: Payment,
+      },
+      {
+        path: 'report',
+        component: Report,
+      },
+    ],
   },
   {
     path: '/student-department', // phòng công tác sinh viên
