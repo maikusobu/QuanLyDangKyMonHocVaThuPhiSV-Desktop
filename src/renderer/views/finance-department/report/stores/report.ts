@@ -53,8 +53,6 @@ const useReportStore = defineStore('report', {
         }
       );
 
-      console.log(response.data);
-
       this.reports = response.data;
     },
   },

@@ -25,16 +25,13 @@ type Course = {
 };
 
 type AvailableCourseItem = {
-  courseId: number;
-  availableCourseId: number;
   course: Course;
 };
 
 type AvailableCourse = {
-  id: number;
-  year: number;
-  term: Term;
-  availableCourseItems: AvailableCourseItem[];
+  availableCourseId: number;
+  available: boolean;
+  availableCourses: AvailableCourseItem[];
 };
 
 type State = {
@@ -72,9 +69,9 @@ const useAvailableCourseStore = defineStore('available_course', {
           return true;
         }
 
-        return !this.currentAvailableCourse?.availableCourseItems.some(
+        return !this.currentAvailableCourse?.availableCourses.some(
           (availableCourseItem: AvailableCourseItem) =>
-            availableCourseItem.courseId === course.id
+            availableCourseItem.course.id === course.id
         );
       });
     },
@@ -95,32 +92,39 @@ const useAvailableCourseStore = defineStore('available_course', {
       this.getCourses();
     },
 
-    async addAvailableCourseItem(body: {
-      courseId: number;
-      year: number;
-      term: Term;
+    async addAvailableCourseItems(body: {
+      courses: number[];
+      availableCourseId: number;
     }) {
       try {
         await axiosClient.post('/course-open', body);
         this.getAvailableCourseByYearAndTerm();
-        toast('Thêm môn học mở thành công');
+        toast('Thêm môn học mở thành công', 'success');
       } catch (error) {
-        toast('Thêm môn học mở thất bại');
+        toast('Thêm môn học mở thất bại', 'error');
       }
     },
 
-    async deleteAvailableCourseItem(
-      courseId: number,
-      availableCourseId: number
-    ) {
+    async deleteAvailableCourseItem(body: {
+      courses: number[];
+      availableCourseId: number;
+    }) {
       try {
-        await axiosClient.delete(
-          `/course-open/${courseId}/${availableCourseId}`
-        );
+        await axiosClient.post('/course-open/delete', body);
         this.getAvailableCourseByYearAndTerm();
-        toast('Xóa môn học mở thành công');
+        toast('Xóa môn học mở thành công', 'success');
       } catch (error) {
-        toast('Xóa môn học mở thất bại');
+        toast('Xóa môn học mở thất bại', 'error');
+      }
+    },
+
+    async closeAvailableCourse(availableCourseId: number) {
+      try {
+        await axiosClient.patch(`/course-open/${availableCourseId}`);
+        this.getAvailableCourseByYearAndTerm();
+        toast('Đóng môn học mở thành công', 'success');
+      } catch (error) {
+        toast('Đóng môn học mở thất bại', 'error');
       }
     },
 

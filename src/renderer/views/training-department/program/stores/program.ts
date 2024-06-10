@@ -99,13 +99,11 @@ const useProgramStore = defineStore('program', {
 
     async addProgramItem(programItem: Partial<ProgramItem>) {
       try {
-        console.log('programItem: ', programItem);
         await axiosClient.post('/program-item', programItem);
         this.clearErrorMessages();
         this.getProgramByMajorId(this.currentProgram?.majorId);
         toast('Thêm môn chương trình học thành công', 'success');
       } catch (error) {
-        console.log(error);
         this.errorMessages = arrayToObject(error.response.data.message) || {};
         toast('Thêm môn chương trình học thất bại', 'error');
       }
