@@ -67,9 +67,9 @@ const useCourseStore = defineStore('course', {
         await axiosClient.delete(`/course/${id}`);
         this.currentCourse = null;
         this.getCourses();
-        toast('Xóa khóa học thành công', 'success');
+        toast('Xóa môn học thành công', 'success');
       } catch (error) {
-        toast('Xóa khóa học thất bại', 'error');
+        toast('Xóa môn học thất bại', 'error');
       }
     },
 

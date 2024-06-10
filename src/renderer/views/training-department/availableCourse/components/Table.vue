@@ -14,8 +14,8 @@
       <tbody>
         <tr
           v-for="availableCourseItem in availableCourseStore
-            .currentAvailableCourse?.availableCourseItems"
-          :key="availableCourseItem.id"
+            .currentAvailableCourse?.availableCourses"
+          :key="availableCourseItem.course.id"
           class="hover:!bg-secondary-100"
         >
           <td>{{ availableCourseItem.course?.id }}</td>
@@ -29,6 +29,9 @@
             <button
               class="btn btn-sm bg-error-text text-base-white hover:bg-delete-button-hover"
               @click="() => handleDelete(availableCourseItem)"
+              :disabled="
+                !availableCourseStore.currentAvailableCourse?.available
+              "
             >
               Xóa
             </button>
@@ -47,9 +50,10 @@ const availableCourseStore = useAvailableCourseStore();
 availableCourseStore.getAvailableCourseByYearAndTerm();
 
 const handleDelete = async (availableCourseItem) => {
-  await availableCourseStore.deleteAvailableCourseItem(
-    availableCourseItem.courseId,
-    availableCourseItem.availableCourseId
-  );
+  await availableCourseStore.deleteAvailableCourseItem({
+    courses: [availableCourseItem.course?.id],
+    availableCourseId:
+      availableCourseStore.currentAvailableCourse?.availableCourseId,
+  });
 };
 </script>

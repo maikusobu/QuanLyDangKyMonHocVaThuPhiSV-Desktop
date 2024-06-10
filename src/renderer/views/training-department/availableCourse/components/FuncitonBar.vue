@@ -32,12 +32,15 @@
     </label>
 
     <AddAvailableCourseItemModal />
+
+    <CloseAvailableCourseModal />
   </div>
 </template>
 
 <script setup>
 import { useAvailableCourseStore } from '../stores/availableCourse.ts';
 import AddAvailableCourseItemModal from './AddAvailableCourseItemModal.vue';
+import CloseAvailableCourseModal from './CloseAvailableCourseModal.vue';
 
 const availableCourseStore = useAvailableCourseStore();
 
@@ -46,10 +49,8 @@ const getYears = () => {
 
   const currentYear = new Date().getFullYear();
 
-  years.push(currentYear - 1);
-
-  for (let i = 0; i < 5; i++) {
-    years.push(currentYear + i);
+  for (let i = 4; i >= -1; i--) {
+    years.push(currentYear - i);
   }
 
   return years;
