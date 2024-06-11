@@ -1,34 +1,33 @@
 <script lang="ts" setup>
 import { useRegistrationStore } from '../stores/registration';
-import ListOpenCourse from './ListOpenCourse.vue';
-import type { MajorWithCourse } from '../stores/registration';
+
+import type { OpenCourse } from '../stores/registration';
 import CreateRegistration from './CreateRegistration.vue';
+import ListOpenCourse from './ListOpenCourse.vue';
 
 const registrationStore = useRegistrationStore();
-defineProps<{
+const props = defineProps<{
   id?: string;
   majorName?: string;
-  majors?: MajorWithCourse[];
+  _id?: string;
+  courses?: OpenCourse[];
 }>();
+const handleDelete = async () => {
+  await registrationStore.deleteRegistration(props._id);
+};
 </script>
 
 <template>
-  <div
-    v-if="
-      majors && majors.findIndex((major) => major.name === majorName) !== -1
-    "
-  >
+  <div v-if="courses && _id">
     <div>
-      <div class="flex">
+      <div class="flex justify-around">
         <div>
           <div>Ngành học: {{ majorName }}</div>
           <h3>Đã đăng ký</h3>
         </div>
-        <button class="btn btn-error">Xóa</button>
+        <button class="btn btn-error" @click="handleDelete">Xóa</button>
       </div>
-      <ListOpenCourse
-        :courses="majors.find((major) => major.name === majorName).courses"
-      />
+      <ListOpenCourse :courses="courses" />
     </div>
   </div>
   <div v-else>
@@ -37,7 +36,7 @@ defineProps<{
         <div>Ngành học: {{ majorName }}</div>
         <h3>Chưa đăng ký</h3>
       </div>
-      <CreateRegistration />
+      <CreateRegistration :id="id" />
     </div>
   </div>
 </template>

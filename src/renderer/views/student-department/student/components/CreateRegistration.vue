@@ -1,6 +1,28 @@
 <script lang="ts" setup>
 import Table from './Table.vue';
-import Row from './Row.vue';
+import { onMounted } from 'vue';
+import {
+  type MajorWithCourse,
+  useRegistrationStore,
+} from '../stores/registration';
+
+const registrationStore = useRegistrationStore();
+onMounted(async () => {
+  await registrationStore.getOpenCourses();
+});
+const props = defineProps<{
+  id?: string;
+}>();
+const handleSubmit = async (e: Event) => {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  const checkboxes = form.querySelectorAll('.checkbox');
+  const courseIds = Array.from(checkboxes)
+    .filter((checkbox) => (checkbox as HTMLInputElement).checked)
+    .map((checkbox) => (checkbox as HTMLInputElement).value)
+    .map((id) => parseInt(id));
+  await registrationStore.submitRegistration(parseInt(props.id), courseIds);
+};
 </script>
 
 <template>
@@ -17,7 +39,7 @@ import Row from './Row.vue';
           ✕
         </button>
       </form>
-      <form>
+      <form @submit.prevent="handleSubmit">
         <table class="table table-pin-rows table-zebra mt-4">
           <thead>
             <tr>
@@ -29,17 +51,30 @@ import Row from './Row.vue';
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              v-for="course in registrationStore.openCourses"
+              :key="course.id"
+            >
               <td>
-                <input class="checkbox" type="checkbox" />
+                <input :value="course.id" class="checkbox" type="checkbox" />
               </td>
-              <td class="w-[10%] overflow-hidden">1</td>
-              <td class="w-[25%] overflow-hidden">Khoa hoc</td>
-              <td class="w-[15%] overflow-hidden">Lý thuyết</td>
-              <td class="w-[30%] overflow-hidden">4</td>
+              <td class="w-[10%] overflow-hidden">{{ course.id }}</td>
+              <td class="w-[25%] overflow-hidden">{{ course.name }}</td>
+              <td class="w-[15%] overflow-hidden">
+                {{ course.courseType.name }}
+              </td>
+              <td class="w-[30%] overflow-hidden">
+                {{ course.numberOfPeriods }}
+              </td>
             </tr>
           </tbody>
         </table>
+        <button
+          class="btn w-[90px] bg-secondary-400 text-base-white hover:bg-secondary-300"
+          type="submit"
+        >
+          Đăng ký
+        </button>
       </form>
     </div>
   </dialog>
