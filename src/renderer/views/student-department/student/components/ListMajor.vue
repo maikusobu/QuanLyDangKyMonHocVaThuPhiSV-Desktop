@@ -12,8 +12,7 @@ const setMajor = (major_Name: string) => {
   majorName.value = major_Name;
 };
 onMounted(async () => {
-  await registrationStore.getCurrentTermYearRegistration();
-  majorName.value = majors[0].name;
+  majors && setMajor(majors[0]?.name || '');
 });
 </script>
 
@@ -41,10 +40,25 @@ onMounted(async () => {
   </div>
   <div class="w-[calc(100%-300px)]">
     <Registration
-      :id="majors.find((major) => major.name === majorName)?.id"
+      v-if="registrationStore.isAvailable"
+      :id="majors.find((item) => item.name === majorName)?.id.toString()"
+      :_id="
+        registrationStore.currentTermYearRegistration.find(
+          (item) => item.major.name === majorName
+        )?._id
+      "
+      :courses="
+        registrationStore.currentTermYearRegistration.find(
+          (item) => item.major.name === majorName
+        )?.courses
+      "
       :majorName="majorName"
-      :majors="registrationStore.currentTermYearRegistration?.majors"
     />
+    <div>
+      <h3 class="text-indigo-700 font-bold text-center">
+        Chốt đăng ký học đã đóng trong học kỳ này, xin đợi sang học kỳ sau
+      </h3>
+    </div>
   </div>
 </template>
 
