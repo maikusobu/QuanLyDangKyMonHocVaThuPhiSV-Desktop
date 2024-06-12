@@ -20,7 +20,7 @@
           <td>{{ payment?.studentId }}</td>
           <td>{{ payment?.studentName }}</td>
           <td>{{ formateDateString(payment?.paymentDate) }}</td>
-          <td>{{ payment?.ammount.toLocaleString() }}</td>
+          <td>{{ payment?.amount?.toLocaleString() }}</td>
         </tr>
       </tbody>
     </table>

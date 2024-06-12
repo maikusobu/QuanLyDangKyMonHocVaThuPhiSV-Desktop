@@ -3,7 +3,7 @@ import { setupCache } from 'axios-cache-interceptor/dev';
 
 export const axiosClient = setupCache(
   axios.create({
-    baseURL: 'https://se104-be-3-e0a6f7e74fba.herokuapp.com/api/v1',
+    baseURL: 'http://localhost:3000/api/v1',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
