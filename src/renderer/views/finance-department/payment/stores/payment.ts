@@ -9,7 +9,7 @@ enum Term {
 
 type Payment = {
   id: number;
-  ammount: number;
+  amount: number;
   paymentDate: string;
   year: number;
   term: Term;

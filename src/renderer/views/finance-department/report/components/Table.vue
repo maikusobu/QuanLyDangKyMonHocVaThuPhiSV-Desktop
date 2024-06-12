@@ -20,8 +20,8 @@
           <td>{{ report?.id }}</td>
           <td>{{ report?.studentId }}</td>
           <td>{{ report?.studentName }}</td>
-          <td>{{ report?.totalRegister.toLocaleString() }}</td>
-          <td>{{ report?.totalActual.toLocaleString() }}</td>
+          <td>{{ report?.totalRegister?.toLocaleString() }}</td>
+          <td>{{ report?.totalActual?.toLocaleString() }}</td>
           <td
             :class="
               report?.totalActual - report?.totalPaid > 0
@@ -29,7 +29,7 @@
                 : 'text-green-500'
             "
           >
-            {{ (report?.totalActual - report?.totalPaid).toLocaleString() }}
+            {{ (report?.totalActual - report?.totalPaid)?.toLocaleString() }}
           </td>
         </tr>
       </tbody>
