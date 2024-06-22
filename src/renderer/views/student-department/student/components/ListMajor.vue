@@ -54,7 +54,7 @@ onMounted(async () => {
       "
       :majorName="majorName"
     />
-    <div>
+    <div v-else>
       <h3 class="text-indigo-700 font-bold text-center">
         Chốt đăng ký học đã đóng trong học kỳ này, xin đợi sang học kỳ sau
       </h3>
