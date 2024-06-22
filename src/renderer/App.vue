@@ -1,6 +1,6 @@
 <template>
   <RouterView />
-  <AddressBar v-if="isDevMode" />
+  <!--  <AddressBar v-if="isDevMode" />-->
 </template>
 
 <script setup>
